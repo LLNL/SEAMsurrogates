@@ -15,7 +15,7 @@ Please send correspondence about this code to seam@llnl.gov
 1. **Clone the repository**
 ```bash
     git clone https://github.com/LLNL/SEAMsurrogates.git
-    cd surmod
+    cd SEAMsurrogates
 ```
 
 2. **Create a virtual environment**
