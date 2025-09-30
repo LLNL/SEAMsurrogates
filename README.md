@@ -13,9 +13,8 @@ Please send correspondence about this code to seam@llnl.gov
 ## Getting Started
 
 1. **Clone the repository**
-TODO: Change the link once it is a GitHub repo. 
 ```bash
-    git clone https://lc.llnl.gov/gitlab/seam/surmod.git
+    git clone https://github.com/LLNL/SEAMsurrogates.git
     cd surmod
 ```
 
