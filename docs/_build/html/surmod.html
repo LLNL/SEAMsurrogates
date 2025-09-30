@@ -1,0 +1,836 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>surmod package &mdash; surmod  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            surmod
+              <img src="_static/SEAM_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">surmod package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-surmod.bayesian_optimization">surmod.bayesian_optimization module</a><ul>
+<li><a class="reference internal" href="#surmod.bayesian_optimization.bayesian_opt"><code class="docutils literal notranslate"><span class="pre">bayesian_opt()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.bayesian_optimization.expected_improvement"><code class="docutils literal notranslate"><span class="pre">expected_improvement()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.bayesian_optimization.get_global_optima"><code class="docutils literal notranslate"><span class="pre">get_global_optima()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.bayesian_optimization.plot_bo"><code class="docutils literal notranslate"><span class="pre">plot_bo()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.bayesian_optimization.plot_results"><code class="docutils literal notranslate"><span class="pre">plot_results()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.bayesian_optimization.probability_of_improvement"><code class="docutils literal notranslate"><span class="pre">probability_of_improvement()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.bayesian_optimization.propose_location"><code class="docutils literal notranslate"><span class="pre">propose_location()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.bayesian_optimization.sample_data"><code class="docutils literal notranslate"><span class="pre">sample_data()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.bayesian_optimization.sample_parabola"><code class="docutils literal notranslate"><span class="pre">sample_parabola()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.bayesian_optimization.upper_confidence_bound"><code class="docutils literal notranslate"><span class="pre">upper_confidence_bound()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-surmod.gp">surmod.gp module</a><ul>
+<li><a class="reference internal" href="#surmod.gp.compute_max_error"><code class="docutils literal notranslate"><span class="pre">compute_max_error()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.gp.get_kernel"><code class="docutils literal notranslate"><span class="pre">get_kernel()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.gp.load_test_function"><code class="docutils literal notranslate"><span class="pre">load_test_function()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.gp.log_results"><code class="docutils literal notranslate"><span class="pre">log_results()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.gp.plot_gp_mean_prediction"><code class="docutils literal notranslate"><span class="pre">plot_gp_mean_prediction()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.gp.plot_gp_std_dev_prediction"><code class="docutils literal notranslate"><span class="pre">plot_gp_std_dev_prediction()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.gp.plot_test_predictions"><code class="docutils literal notranslate"><span class="pre">plot_test_predictions()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.gp.simulate_data"><code class="docutils literal notranslate"><span class="pre">simulate_data()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-surmod.jag">surmod.jag module</a><ul>
+<li><a class="reference internal" href="#surmod.jag.load_data"><code class="docutils literal notranslate"><span class="pre">load_data()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.jag.split_data"><code class="docutils literal notranslate"><span class="pre">split_data()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-surmod.neural_net">surmod.neural_net module</a><ul>
+<li><a class="reference internal" href="#surmod.neural_net.NeuralNet"><code class="docutils literal notranslate"><span class="pre">NeuralNet</span></code></a><ul>
+<li><a class="reference internal" href="#surmod.neural_net.NeuralNet.forward"><code class="docutils literal notranslate"><span class="pre">NeuralNet.forward()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#surmod.neural_net.load_test_function"><code class="docutils literal notranslate"><span class="pre">load_test_function()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.neural_net.plot_losses"><code class="docutils literal notranslate"><span class="pre">plot_losses()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.neural_net.plot_losses_multiplot"><code class="docutils literal notranslate"><span class="pre">plot_losses_multiplot()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.neural_net.plot_losses_verbose"><code class="docutils literal notranslate"><span class="pre">plot_losses_verbose()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.neural_net.plot_predictions"><code class="docutils literal notranslate"><span class="pre">plot_predictions()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.neural_net.train_neural_net"><code class="docutils literal notranslate"><span class="pre">train_neural_net()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-surmod.parabola">surmod.parabola module</a><ul>
+<li><a class="reference internal" href="#surmod.parabola.Parabola"><code class="docutils literal notranslate"><span class="pre">Parabola</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-surmod.sens_functions">surmod.sens_functions module</a><ul>
+<li><a class="reference internal" href="#surmod.sens_functions.otlcircuit"><code class="docutils literal notranslate"><span class="pre">otlcircuit()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.sens_functions.parabola"><code class="docutils literal notranslate"><span class="pre">parabola()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.sens_functions.piston"><code class="docutils literal notranslate"><span class="pre">piston()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.sens_functions.scale_inputs"><code class="docutils literal notranslate"><span class="pre">scale_inputs()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.sens_functions.wingweight"><code class="docutils literal notranslate"><span class="pre">wingweight()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-surmod.sensitivity">surmod.sensitivity module</a><ul>
+<li><a class="reference internal" href="#surmod.sensitivity.better_sobol_plot"><code class="docutils literal notranslate"><span class="pre">better_sobol_plot()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.sensitivity.load_test_settings"><code class="docutils literal notranslate"><span class="pre">load_test_settings()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.sensitivity.plot_test_predictions"><code class="docutils literal notranslate"><span class="pre">plot_test_predictions()</span></code></a></li>
+<li><a class="reference internal" href="#surmod.sensitivity.simulate_data"><code class="docutils literal notranslate"><span class="pre">simulate_data()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-surmod">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">surmod</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">surmod package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/surmod.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="surmod-package">
+<h1>surmod package<a class="headerlink" href="#surmod-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-surmod.bayesian_optimization">
+<span id="surmod-bayesian-optimization-module"></span><h2>surmod.bayesian_optimization module<a class="headerlink" href="#module-surmod.bayesian_optimization" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.bayesian_optimization.bayesian_opt">
+<span class="sig-prename descclassname"><span class="pre">surmod.bayesian_optimization.</span></span><span class="sig-name descname"><span class="pre">bayesian_opt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_init</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acquisition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#surmod.bayesian_optimization.bayesian_opt" title="Link to this definition"></a></dt>
+<dd><p>Perform Bayesian optimization to compute the maximum yield for the
+JAG dataset.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.bayesian_optimization.expected_improvement">
+<span class="sig-prename descclassname"><span class="pre">surmod.bayesian_optimization.</span></span><span class="sig-name descname"><span class="pre">expected_improvement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#surmod.bayesian_optimization.expected_improvement" title="Link to this definition"></a></dt>
+<dd><p>Calculate the expected improvement acquisition function.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.bayesian_optimization.get_global_optima">
+<span class="sig-prename descclassname"><span class="pre">surmod.bayesian_optimization.</span></span><span class="sig-name descname"><span class="pre">get_global_optima</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#surmod.bayesian_optimization.get_global_optima" title="Link to this definition"></a></dt>
+<dd><p>Get locations of global optima by objective_function for plotting.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.bayesian_optimization.plot_bo">
+<span class="sig-prename descclassname"><span class="pre">surmod.bayesian_optimization.</span></span><span class="sig-name descname"><span class="pre">plot_bo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_initial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iteration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isotropic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#surmod.bayesian_optimization.plot_bo" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.bayesian_optimization.plot_results">
+<span class="sig-prename descclassname"><span class="pre">surmod.bayesian_optimization.</span></span><span class="sig-name descname"><span class="pre">plot_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_yield_EI</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_yield_PI</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_yield_UCB</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_yield_random</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_init</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#surmod.bayesian_optimization.plot_results" title="Link to this definition"></a></dt>
+<dd><p>Plot max yield vs iteration for different acquisition functions.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.bayesian_optimization.probability_of_improvement">
+<span class="sig-prename descclassname"><span class="pre">surmod.bayesian_optimization.</span></span><span class="sig-name descname"><span class="pre">probability_of_improvement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_sample</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_max</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#surmod.bayesian_optimization.probability_of_improvement" title="Link to this definition"></a></dt>
+<dd><p>Calculate the probability of improvement acquisition function.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.bayesian_optimization.propose_location">
+<span class="sig-prename descclassname"><span class="pre">surmod.bayesian_optimization.</span></span><span class="sig-name descname"><span class="pre">propose_location</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds_low</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds_high</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_restarts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#surmod.bayesian_optimization.propose_location" title="Link to this definition"></a></dt>
+<dd><p>Propose new input to sample for next BO iteration.  Note, this may only
+be a local maxima of the acquisition function.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.bayesian_optimization.sample_data">
+<span class="sig-prename descclassname"><span class="pre">surmod.bayesian_optimization.</span></span><span class="sig-name descname"><span class="pre">sample_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds_low</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds_high</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_initial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#surmod.bayesian_optimization.sample_data" title="Link to this definition"></a></dt>
+<dd><p>Generate sample data from objective function.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.bayesian_optimization.sample_parabola">
+<span class="sig-prename descclassname"><span class="pre">surmod.bayesian_optimization.</span></span><span class="sig-name descname"><span class="pre">sample_parabola</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_initial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds_low</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds_high</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#surmod.bayesian_optimization.sample_parabola" title="Link to this definition"></a></dt>
+<dd><p>radius in which no initial sample points will be generated.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.bayesian_optimization.upper_confidence_bound">
+<span class="sig-prename descclassname"><span class="pre">surmod.bayesian_optimization.</span></span><span class="sig-name descname"><span class="pre">upper_confidence_bound</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_sample</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kappa</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#surmod.bayesian_optimization.upper_confidence_bound" title="Link to this definition"></a></dt>
+<dd><p>Calculate the Upper Confidence Bound (UCB) acquisition function.</p>
+</dd></dl>
+
+</section>
+<section id="module-surmod.gp">
+<span id="surmod-gp-module"></span><h2>surmod.gp module<a class="headerlink" href="#module-surmod.gp" title="Link to this heading"></a></h2>
+<p>Functions for Gaussian process surrogates.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.gp.compute_max_error">
+<span class="sig-prename descclassname"><span class="pre">surmod.gp.</span></span><span class="sig-name descname"><span class="pre">compute_max_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#surmod.gp.compute_max_error" title="Link to this definition"></a></dt>
+<dd><p>Computes the maximum absolute error between prediction and target values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output</strong> (<em>np.ndarray</em>) – Predicted values, shape (n_samples,) or (n_samples, n_outputs).</p></li>
+<li><p><strong>target</strong> (<em>np.ndarray</em>) – True target values, same shape as output.</p></li>
+<li><p><strong>inputs</strong> (<em>np.ndarray</em>) – Input data corresponding to each prediction, shape (n_samples, n_features).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>max_error_value: Maximum absolute error value.
+max_error_inputs: Input(s) corresponding to the maximum error(s).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[float, np.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.gp.get_kernel">
+<span class="sig-prename descclassname"><span class="pre">surmod.gp.</span></span><span class="sig-name descname"><span class="pre">get_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isotropic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Kernel</span></span></span><a class="headerlink" href="#surmod.gp.get_kernel" title="Link to this definition"></a></dt>
+<dd><p>Function to generate kernel for GPregressor in sklearn.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>kernel</strong> (<em>str</em>) – Choice of kernel, accepts “rbf”, “matern”, and “matern_dot”.</p></li>
+<li><p><strong>dim</strong> (<em>int</em>) – Dimension of inputs for the kernel.</p></li>
+<li><p><strong>isotropic</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, sets the model to an isotropic kernel with a single lengthscale for all inputs. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If kernel is not one of the approved options.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An sklearn kernel object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Kernel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.gp.load_test_function">
+<span class="sig-prename descclassname"><span class="pre">surmod.gp.</span></span><span class="sig-name descname"><span class="pre">load_test_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#surmod.gp.load_test_function" title="Link to this definition"></a></dt>
+<dd><p>Loads a test function instance for simulating data based on the given
+objective function name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>objective_function</strong> (<em>str</em>) – The name of the objective function to load.
+Supported values are “Parabola”, “Ackley”, “Griewank”, “Branin”,
+and “HolderTable”.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An instance of the requested test function, initialized with
+standard parameters.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the specified objective function name is not recognized.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.gp.log_results">
+<span class="sig-prename descclassname"><span class="pre">surmod.gp.</span></span><span class="sig-name descname"><span class="pre">log_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_to_log</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#surmod.gp.log_results" title="Link to this definition"></a></dt>
+<dd><p>Writes a message to a log file at the specified path.</p>
+<p>Creates the directory “./output_log” if it does not exist.
+Appends the message to the log file.
+Prints a confirmation message to the console.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<em>str</em>) – The message to be written to the log file.</p></li>
+<li><p><strong>path_to_log</strong> (<em>str</em>) – The path to the log file where the message will be appended.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.gp.plot_gp_mean_prediction">
+<span class="sig-prename descclassname"><span class="pre">surmod.gp.</span></span><span class="sig-name descname"><span class="pre">plot_gp_mean_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gp_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">GaussianProcessRegressor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_mse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Kernel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objective_data_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_scaler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#surmod.gp.plot_gp_mean_prediction" title="Link to this definition"></a></dt>
+<dd><p>Plots the mean prediction surface of a Gaussian Process (GP) model along
+with training data and the true test function.</p>
+<p>Creates a 3D plot visualizing the GP mean prediction, the true test
+function, and training points. Saves the plot as a PNG file in the
+‘./plots’ directory, creating the directory if it does not exist.
+Prints the path to the saved figure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_train</strong> (<em>np.ndarray</em>) – Training input data, shape (n_samples, 2).
+y_train (np.ndarray): Training target values, shape (n_samples,).</p></li>
+<li><p><strong>gp_model</strong> – Trained GP model object with a predict method.
+test_mse (float): Mean squared error of the GP model on test data.</p></li>
+<li><p><strong>kernel</strong> – Kernel used in the GP model (for display in the plot title).
+objective_data_name (str): Name of the test function or dataset.</p></li>
+<li><p><strong>alpha</strong> (<em>float</em>) – Alpha parameter used in the GP model (for display in the plot title).</p></li>
+<li><p><strong>normalize_x</strong> (<em>bool</em>) – Whether input features were normalized.</p></li>
+<li><p><strong>normalize_y</strong> (<em>bool</em>) – Whether output targets were normalized.</p></li>
+<li><p><strong>input_scaler</strong> (<em>Optional</em><em>[</em><em>object</em><em>]</em>) – Scaler object for input normalization, with transform and inverse_transform methods. Default is None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.gp.plot_gp_std_dev_prediction">
+<span class="sig-prename descclassname"><span class="pre">surmod.gp.</span></span><span class="sig-name descname"><span class="pre">plot_gp_std_dev_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gp_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">GaussianProcessRegressor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_mse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Kernel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objective_data_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_scaler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#surmod.gp.plot_gp_std_dev_prediction" title="Link to this definition"></a></dt>
+<dd><p>Plots the predictive standard deviation (uncertainty) of a trained Gaussian
+Process (GP) model over a 2D input space, using a heatmap. Also displays the
+training points and relevant model information.</p>
+<p>The plot is saved as a PNG file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_train</strong> (<em>np.ndarray</em>) – Training input features used to fit the GP model.</p></li>
+<li><p><strong>gp_model</strong> (<em>GaussianProcessRegressor</em>) – Trained Gaussian Process model for prediction.</p></li>
+<li><p><strong>test_mse</strong> (<em>float</em>) – Mean squared error on the test set, used for RMSE calculation.</p></li>
+<li><p><strong>kernel</strong> (<em>Kernel</em>) – Kernel object used in the GP model, for display in the plot title.</p></li>
+<li><p><strong>objective_data_name</strong> (<em>str</em>) – Name of the objective or dataset, used for labeling and saving the plot.</p></li>
+<li><p><strong>alpha</strong> (<em>float</em>) – Noise level or regularization parameter used in the GP model, for display.</p></li>
+<li><p><strong>normalize_x</strong> (<em>bool</em>) – Whether input features were normalized, for display.</p></li>
+<li><p><strong>normalize_y</strong> (<em>bool</em>) – Whether targets were normalized, for display.</p></li>
+<li><p><strong>input_scaler</strong> (<em>optional</em>) – Fitted scaler or transformer for input normalization, if used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.gp.plot_test_predictions">
+<span class="sig-prename descclassname"><span class="pre">surmod.gp.</span></span><span class="sig-name descname"><span class="pre">plot_test_predictions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gp_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">GaussianProcessRegressor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objective_data_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#surmod.gp.plot_test_predictions" title="Link to this definition"></a></dt>
+<dd><p>Plots the predicted vs. observed values for test data using a Gaussian
+Process model, including error bars for the 95% prediction interval.</p>
+<p>Calculates and displays RMSE and coverage of the prediction interval. Saves
+the plot as a PNG file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_test</strong> (<em>np.ndarray</em>) – Test input features for prediction.</p></li>
+<li><p><strong>observed</strong> (<em>np.ndarray</em>) – Observed target values corresponding to x_test.</p></li>
+<li><p><strong>gp_model</strong> (<em>GaussianProcessRegressor</em>) – Trained Gaussian Process model for prediction.</p></li>
+<li><p><strong>objective_data_name</strong> (<em>str</em>) – Name of the objective or dataset, used for labeling and saving the plot.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.gp.simulate_data">
+<span class="sig-prename descclassname"><span class="pre">surmod.gp.</span></span><span class="sig-name descname"><span class="pre">simulate_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#surmod.gp.simulate_data" title="Link to this definition"></a></dt>
+<dd><p>Simulates training and testing data from a specified test function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objective_function</strong> (<em>str</em>) – The name of the objective function to simulate
+data from. Supported values are “Parabola”, “Ackley”, “Griewank”,
+“Branin”, and “HolderTable”.</p></li>
+<li><p><strong>num_train</strong> (<em>int</em>) – Number of training samples to generate.</p></li>
+<li><p><strong>num_test</strong> (<em>int</em>) – Number of testing samples to generate.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A tuple containing:</dt><dd><ul class="simple">
+<li><p>x_train (np.ndarray): Training input data of shape (num_train, 2).</p></li>
+<li><p>x_test (np.ndarray): Testing input data of shape (num_test, 2).</p></li>
+<li><p>y_train (np.ndarray): Training target data of shape (num_train,).</p></li>
+<li><p>y_test (np.ndarray): Testing target data of shape (num_test,).</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the specified objective function name is not recognized.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-surmod.jag">
+<span id="surmod-jag-module"></span><h2>surmod.jag module<a class="headerlink" href="#module-surmod.jag" title="Link to this heading"></a></h2>
+<p>Functions for JAG ICF data.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.jag.load_data">
+<span class="sig-prename descclassname"><span class="pre">surmod.jag.</span></span><span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_to_csv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'../../data/JAG_10k.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_samples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#surmod.jag.load_data" title="Link to this definition"></a></dt>
+<dd><p>Load a subset of the JAG ICF dataset from a CSV file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_to_csv</strong> (<em>str</em>) – Path to the CSV file.</p></li>
+<li><p><strong>n_samples</strong> (<em>int</em>) – Number of rows to load. Defaults to dataset size.</p></li>
+<li><p><strong>random</strong> (<em>bool</em>) – If True, select rows randomly. Otherwise, select the
+first n_samples rows.</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em> or </em><em>None</em>) – Random seed for reproducibility (used if random is
+True). Defaults to None.</p></li>
+<li><p><strong>normalize</strong> (<em>bool</em>) – If True, normalize all columns to [0, 1]. Defaults to
+True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame with columns [“x0”, “x1”, “x2”, “x3”, “x4”, “y”].</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.jag.split_data">
+<span class="sig-prename descclassname"><span class="pre">surmod.jag.</span></span><span class="sig-name descname"><span class="pre">split_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LHD</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">42</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#surmod.jag.split_data" title="Link to this definition"></a></dt>
+<dd><p>Split data into train and test sets using either Latin Hypercube Design
+(LHD) or random split.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Input DataFrame where the last column is the label.</p></li>
+<li><p><strong>LHD</strong> (<em>bool</em>) – If True, use Latin Hypercube Design for selecting training
+samples. If False, use random split. Defaults to False.</p></li>
+<li><p><strong>n_train</strong> (<em>int</em>) – Number of training samples to select. Defaults to 100.</p></li>
+<li><p><strong>seed</strong> (<em>int</em>) – Random seed for reproducibility. Defaults to 42.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>x_train: Training features array.
+x_test: Testing features array.
+y_train: Training labels array (reshaped to column vector).
+y_test: Testing labels array (reshaped to column vector).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If n_train is greater than the total number of samples in df.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-surmod.neural_net">
+<span id="surmod-neural-net-module"></span><h2>surmod.neural_net module<a class="headerlink" href="#module-surmod.neural_net" title="Link to this heading"></a></h2>
+<p>Functions for neural network surrogates.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="surmod.neural_net.NeuralNet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">surmod.neural_net.</span></span><span class="sig-name descname"><span class="pre">NeuralNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_sizes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initialize_weights_normal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#surmod.neural_net.NeuralNet" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>A customizable feedforward neural network for regression tasks.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="surmod.neural_net.NeuralNet.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#surmod.neural_net.NeuralNet.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward pass through the neural network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>torch.Tensor</em>) – Input tensor.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Output tensor after passing through the network.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.neural_net.load_test_function">
+<span class="sig-prename descclassname"><span class="pre">surmod.neural_net.</span></span><span class="sig-name descname"><span class="pre">load_test_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SyntheticTestFunction</span></span></span><a class="headerlink" href="#surmod.neural_net.load_test_function" title="Link to this definition"></a></dt>
+<dd><p>Load a test function instance for simulating data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>objective_function</strong> (<em>str</em>) – Name of the test function to load.
+Must be one of: “Ackley”, “SixHumpCamel”, “Griewank”.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An instance of the requested BoTorch synthetic
+test function.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SyntheticTestFunction</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the objective_function name is not recognized.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.neural_net.plot_losses">
+<span class="sig-prename descclassname"><span class="pre">surmod.neural_net.</span></span><span class="sig-name descname"><span class="pre">plot_losses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_losses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_losses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objective_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'___</span> <span class="pre">data'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#surmod.neural_net.plot_losses" title="Link to this definition"></a></dt>
+<dd><p>Plot and save the training and testing loss curves across epochs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train_losses</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – List of training loss values (MSE) for each
+epoch.</p></li>
+<li><p><strong>test_losses</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – List of testing loss values (MSE) for each
+epoch.</p></li>
+<li><p><strong>objective_data</strong> (<em>str</em><em>, </em><em>optional</em>) – Name or description of the objective
+function or dataset. Used in the plot title and filename. Defaults
+to “___ data”.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.neural_net.plot_losses_multiplot">
+<span class="sig-prename descclassname"><span class="pre">surmod.neural_net.</span></span><span class="sig-name descname"><span class="pre">plot_losses_multiplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_losses_grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_losses_grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hid_dims</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Axes</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objective_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'___</span> <span class="pre">data'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#surmod.neural_net.plot_losses_multiplot" title="Link to this definition"></a></dt>
+<dd><p>Plots training and test losses for multiple runs on a grid of subplots.</p>
+<p>Each subplot corresponds to a specific combination of hidden dimension and
+learning rate, displaying the training and test loss curves over epochs.
+The final test loss (RMSE) is shown in each subplot title. The resulting
+multiplot figure is saved to ‘plots’ directory with a filename that includes
+the objective data and a timestamp.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train_losses_grid</strong> (<em>Sequence</em><em>[</em><em>Sequence</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>]</em><em>]</em>) – 2D grid where each element is a list of training losses per epoch
+for a specific (hidden_dim, learning_rate) pair.</p></li>
+<li><p><strong>test_losses_grid</strong> (<em>Sequence</em><em>[</em><em>Sequence</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>]</em><em>]</em>) – 2D grid where each element is a list of test losses per epoch for a
+specific (hidden_dim, learning_rate) pair.</p></li>
+<li><p><strong>learning_rates</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – List of learning rates corresponding to the columns of the subplot
+grid.</p></li>
+<li><p><strong>hid_dims</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – List of hidden dimensions corresponding to the rows of the subplot
+grid.</p></li>
+<li><p><strong>axs</strong> (<em>Sequence</em><em>[</em><em>Sequence</em><em>[</em><em>matplotlib.axes.Axes</em><em>]</em><em>]</em>) – 2D grid of matplotlib Axes objects for plotting.</p></li>
+<li><p><strong>objective_data</strong> (<em>str</em><em>, </em><em>optional</em>) – String identifier for the data/objective function, used in the saved
+filename.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.neural_net.plot_losses_verbose">
+<span class="sig-prename descclassname"><span class="pre">surmod.neural_net.</span></span><span class="sig-name descname"><span class="pre">plot_losses_verbose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_losses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_losses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_sizes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objective_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'___</span> <span class="pre">data'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#surmod.neural_net.plot_losses_verbose" title="Link to this definition"></a></dt>
+<dd><p>Plot and save training and testing loss curves across epochs, with
+hyperparameter values in the plot title.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train_losses</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – List of training loss values (MSE) for each
+epoch.</p></li>
+<li><p><strong>test_losses</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – List of testing loss values (MSE) for each
+epoch.</p></li>
+<li><p><strong>learning_rate</strong> (<em>float</em>) – Learning rate used during training.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – Batch size used during training.</p></li>
+<li><p><strong>hidden_sizes</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – List of hidden layer sizes in the model.</p></li>
+<li><p><strong>normalize_x</strong> (<em>bool</em>) – Whether input features (x) were normalized.</p></li>
+<li><p><strong>scale_x</strong> (<em>bool</em>) – Whether input features (x) were scaled.</p></li>
+<li><p><strong>normalize_y</strong> (<em>bool</em>) – Whether target values (y) were normalized.</p></li>
+<li><p><strong>scale_y</strong> (<em>bool</em>) – Whether target values (y) were scaled.</p></li>
+<li><p><strong>objective_data</strong> (<em>str</em><em>, </em><em>optional</em>) – Name or description of the objective
+function or dataset. Used in the plot title and filename. Defaults
+to “___ data”.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.neural_net.plot_predictions">
+<span class="sig-prename descclassname"><span class="pre">surmod.neural_net.</span></span><span class="sig-name descname"><span class="pre">plot_predictions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">final_test_mse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objective_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'___</span> <span class="pre">data'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#surmod.neural_net.plot_predictions" title="Link to this definition"></a></dt>
+<dd><p>Plots the actual test values against the predicted values.</p>
+<p>This function creates a parity plot comparing the true test values to the
+model’s predictions. A reference line for perfect prediction is included.
+The final test loss (RMSE) is displayed in the plot title. The plot is saved
+in the ‘plots’ directory, with a filename that includes the objective data
+and a timestamp.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_test</strong> (<em>torch.Tensor</em>) – The true target values for the test set.</p></li>
+<li><p><strong>predictions</strong> (<em>torch.Tensor</em>) – The predicted values from the model for the test set.</p></li>
+<li><p><strong>final_test_mse</strong> (<em>float</em>) – The final mean squared error on the test set.</p></li>
+<li><p><strong>objective_data</strong> (<em>str</em><em>, </em><em>optional</em>) – Identifier for the data/objective, used in the filename. Defaults
+to “___ data”.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.neural_net.train_neural_net">
+<span class="sig-prename descclassname"><span class="pre">surmod.neural_net.</span></span><span class="sig-name descname"><span class="pre">train_neural_net</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_sizes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_epochs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initialize_weights_normal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Module</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#surmod.neural_net.train_neural_net" title="Link to this definition"></a></dt>
+<dd><p>Train a feedforward neural network and evaluate its performance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_train</strong> (<em>torch.Tensor</em>) – Training input features of shape (n_samples, n_features).</p></li>
+<li><p><strong>y_train</strong> (<em>torch.Tensor</em>) – Training target values of shape (n_samples,) or (n_samples, 1).</p></li>
+<li><p><strong>x_test</strong> (<em>torch.Tensor</em>) – Test input features of shape (n_test_samples, n_features).</p></li>
+<li><p><strong>y_test</strong> (<em>torch.Tensor</em>) – Test target values of shape (n_test_samples,) or (n_test_samples, 1).</p></li>
+<li><p><strong>hidden_sizes</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – List specifying the number of units in each hidden layer.</p></li>
+<li><p><strong>num_epochs</strong> (<em>int</em>) – Number of epochs to train the network.</p></li>
+<li><p><strong>learning_rate</strong> (<em>float</em>) – Learning rate for the optimizer.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – Number of samples per training batch.</p></li>
+<li><p><strong>seed</strong> (<em>int</em>) – Random seed for reproducibility.</p></li>
+<li><p><strong>initialize_weights_normal</strong> (<em>bool</em>) – If True, initialize weights with a normal distribution.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Trained neural network model, list of training losses per epoch, and list of test losses per epoch.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[nn.Module, List[float], List[float]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-surmod.parabola">
+<span id="surmod-parabola-module"></span><h2>surmod.parabola module<a class="headerlink" href="#module-surmod.parabola" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="surmod.parabola.Parabola">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">surmod.parabola.</span></span><span class="sig-name descname"><span class="pre">Parabola</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_std</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">negate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#surmod.parabola.Parabola" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SyntheticTestFunction</span></code></p>
+<p>Parabola test function.</p>
+<p>Default is bivariate parabola evaluated on [-8,8]x[-8,8].</p>
+</dd></dl>
+
+</section>
+<section id="module-surmod.sens_functions">
+<span id="surmod-sens-functions-module"></span><h2>surmod.sens_functions module<a class="headerlink" href="#module-surmod.sens_functions" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.sens_functions.otlcircuit">
+<span class="sig-prename descclassname"><span class="pre">surmod.sens_functions.</span></span><span class="sig-name descname"><span class="pre">otlcircuit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#surmod.sens_functions.otlcircuit" title="Link to this definition"></a></dt>
+<dd><p>This function computes the midpoint voltage of output transformerless (OTL)
+push-pull circuit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>np.ndarray</em>) – Array of shape (n_samples, n_variables) with normalized values in [0, 1].
+Each column corresponds to an input variable, scaled according to its bounds.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of calculated midpoint voltages (in volts) for each input sample.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="simple">
+<dt>[1] Formula source: OTL Circuit Function, Simon Fraser University,</dt><dd><p><a class="reference external" href="https://www.sfu.ca/~ssurjano/otlcircuit.html">https://www.sfu.ca/~ssurjano/otlcircuit.html</a> (accessed July 2024).</p>
+</dd>
+<dt>[2] Ben-Ari, E. N., &amp; Steinberg, D. M. (2007). Modeling data from computer experiments:</dt><dd><p>an empirical comparison of kriging with MARS and projection pursuit regression.
+Quality Engineering, 19(4), 327-338.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.sens_functions.parabola">
+<span class="sig-prename descclassname"><span class="pre">surmod.sens_functions.</span></span><span class="sig-name descname"><span class="pre">parabola</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta12</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#surmod.sens_functions.parabola" title="Link to this definition"></a></dt>
+<dd><p>Computes a quadratic function with an interaction term for a set of 2D input points.</p>
+<dl class="simple">
+<dt>The function is defined as:</dt><dd><p>f(x1, x2) = beta1 * x1^2 + beta2 * x2^2 + beta12 * sin(6 * x1 * x2 - 3)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>np.ndarray</em>) – Array of shape (n_samples, 2), where each row is a 2D input point [x1, x2].</p></li>
+<li><p><strong>beta1</strong> (<em>float</em>) – Coefficient for the x1^2 term.</p></li>
+<li><p><strong>beta2</strong> (<em>float</em>) – Coefficient for the x2^2 term.</p></li>
+<li><p><strong>beta12</strong> (<em>float</em>) – Coefficient for the interaction term sin(6 * x1 * x2 - 3).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of shape (n_samples,) containing the computed function values for each input.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.sens_functions.piston">
+<span class="sig-prename descclassname"><span class="pre">surmod.sens_functions.</span></span><span class="sig-name descname"><span class="pre">piston</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#surmod.sens_functions.piston" title="Link to this definition"></a></dt>
+<dd><p>This function computes the time it takes a piston to complete one cycle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>np.ndarray</em>) – Array of shape (n_samples, n_variables) with normalized values in [0, 1].
+Each column corresponds to an input variable, scaled according to its bounds.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of calculated cycle times (in seconds) for each input sample.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="simple">
+<dt>[1] Formula source: Piston Simulation Function, Simon Fraser University,</dt><dd><p><a class="reference external" href="https://www.sfu.ca/~ssurjano/piston.html">https://www.sfu.ca/~ssurjano/piston.html</a> (accessed July 2024).</p>
+</dd>
+<dt>[2] Ben-Ari, E. N., &amp; Steinberg, D. M. (2007). Modeling data from computer experiments:</dt><dd><p>an empirical comparison of kriging with MARS and projection pursuit regression.
+Quality Engineering, 19(4), 327-338.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.sens_functions.scale_inputs">
+<span class="sig-prename descclassname"><span class="pre">surmod.sens_functions.</span></span><span class="sig-name descname"><span class="pre">scale_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#surmod.sens_functions.scale_inputs" title="Link to this definition"></a></dt>
+<dd><p>Scales normalized input values to their actual ranges based on provided bounds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>np.ndarray</em>) – Array of shape (n_samples, n_variables) with normalized values in [0, 1].
+Each column corresponds to an input variable, scaled according to its bounds.</p></li>
+<li><p><strong>bounds</strong> (<em>dict</em>) – Dictionary mapping variable names to (min, max) tuples.
+The order of variables in X columns should match the order of keys in bounds.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If any element in X is outside the [0, 1] interval.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Array of shape (n_samples, n_variables) with values scaled to their respective bounds.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.sens_functions.wingweight">
+<span class="sig-prename descclassname"><span class="pre">surmod.sens_functions.</span></span><span class="sig-name descname"><span class="pre">wingweight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#surmod.sens_functions.wingweight" title="Link to this definition"></a></dt>
+<dd><p>This function computes the weight of a light aircraft wing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>np.ndarray</em>) – Array of shape (n_samples, n_variables) with normalized values in [0, 1].
+Each column corresponds to an input variable, scaled according to its bounds.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of wing weights (in pounds) for each input sample.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="simple">
+<dt>[1] Formula source: Wing Weight Function, Simon Fraser University,</dt><dd><p><a class="reference external" href="https://www.sfu.ca/~ssurjano/wingweight.html">https://www.sfu.ca/~ssurjano/wingweight.html</a> (accessed July 2024).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-surmod.sensitivity">
+<span id="surmod-sensitivity-module"></span><h2>surmod.sensitivity module<a class="headerlink" href="#module-surmod.sensitivity" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.sensitivity.better_sobol_plot">
+<span class="sig-prename descclassname"><span class="pre">surmod.sensitivity.</span></span><span class="sig-name descname"><span class="pre">better_sobol_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">S1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ST</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">S1_conf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ST_conf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#surmod.sensitivity.better_sobol_plot" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.sensitivity.load_test_settings">
+<span class="sig-prename descclassname"><span class="pre">surmod.sensitivity.</span></span><span class="sig-name descname"><span class="pre">load_test_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#surmod.sensitivity.load_test_settings" title="Link to this definition"></a></dt>
+<dd><p>Load test function for simulating data from.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.sensitivity.plot_test_predictions">
+<span class="sig-prename descclassname"><span class="pre">surmod.sensitivity.</span></span><span class="sig-name descname"><span class="pre">plot_test_predictions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gp_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objective_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#surmod.sensitivity.plot_test_predictions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="surmod.sensitivity.simulate_data">
+<span class="sig-prename descclassname"><span class="pre">surmod.sensitivity.</span></span><span class="sig-name descname"><span class="pre">simulate_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b12</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#surmod.sensitivity.simulate_data" title="Link to this definition"></a></dt>
+<dd><p>Simulate data from test function.</p>
+</dd></dl>
+
+</section>
+<section id="module-surmod">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-surmod" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Jason Bernstein, Kevin Quinlan, Emily Bogle, Andrew Gillette.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
