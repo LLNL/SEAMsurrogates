@@ -65,7 +65,7 @@ Please send correspondence about this code to seam@llnl.gov
 
 ## License
 
-This software is distributed under the terms of the MIT license. All new contributions must be made under the MIT license.
+This software is distributed under the terms of the BSD-Commercial license. 
 
 See Link to LICENSE and NOTICE for details.
 
