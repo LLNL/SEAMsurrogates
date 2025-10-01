@@ -589,29 +589,30 @@ def plot_acquisition_comparison(
         max_output_EI,
         marker="o",
         c="blue",
-        label="Expected Improvement (EI)",
+        label="EI",
     )
     plt.plot(
         max_output_PI,
         marker="o",
         c="orange",
-        label="Probability of Improvement (PI)",
+        label="PI",
     )
     plt.plot(
         max_output_UCB,
         marker="o",
         c="green",
-        label="Upper Confidence Bound",
+        label="UCB",
     )
     plt.plot(
         max_output_random,
         marker="o",
         c="purple",
-        label="Uniform Random",
+        label="rand",
     )
     plt.title("Maximum Observed Output vs Iteration")
     plt.xlabel("Iteration")
     plt.ylabel("Maximum Output")
+    plt.legend()
     plt.grid()
 
     if not os.path.exists("./plots"):
