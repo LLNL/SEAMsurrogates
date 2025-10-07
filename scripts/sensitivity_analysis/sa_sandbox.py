@@ -7,13 +7,13 @@ and runs a sensitivity analysis with the fitted GP model.
 Usage:
 
 # Make script executable
-chmod +x ./jag_sens.py
+chmod +x ./sa_sandbox.py
 
 # Get help
-./sensitivity_intro.py -h
+./sa_sandbox.py -h
 
 # Perform sensitivity analysis on otlcircuit function with 200 training points
-./sensitivity_intro.py -o otlcircuit -n 200
+./sa_sandbox.py -o otlcircuit -n 200
 """
 
 import argparse

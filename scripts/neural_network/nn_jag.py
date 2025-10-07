@@ -8,21 +8,21 @@ learning rate.  It saves two images to the directory containing this script.
 Usage:
 
 # Make script executable
-chmod +x ./neural_net_jag.py
+chmod +x ./nn_jag.py
 
 # See help
-./neural_net_jag.py -h
+./nn_jag.py -h
 
 # Train a neural net with hidden layers of sizes 10 and 20
-./neural_net_jag.py --hidden_sizes 10 20
+./nn_jag.py --hidden_sizes 10 20
 
 # Train a neural net with hidden layers of sizes 5 and 10, a batch size 20,
 #   and 200 epochs
-./neural_net_jag.py --hidden_sizes 5 10 -b 20 -n 200
+./nn_jag.py --hidden_sizes 5 10 -b 20 -n 200
 
 # Train a neural net with layers of size 60 and 60, a learning rate of 0.02,
 #   and a batch size of 40
-./neural_net_jag.py --hidden_sizes 60 60 -n 600 -l 0.02 -b 40
+./nn_jag.py --hidden_sizes 60 60 -n 600 -l 0.02 -b 40
 """
 
 import argparse

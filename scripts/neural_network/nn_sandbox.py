@@ -10,22 +10,22 @@ using month/day_hour/min/sec format within working directory.
 Usage:
 
 # Make script executable
-chmod +x ./FFNN_sandbox.py
+chmod +x ./nn_sandbox.py
 
 # See help.
-./FFNN_sandbox.py -h
+./nn_sandbox.py -h
 
 # Train a NN on the Ackley function with default settings.
-./FFNN_sandbox.py
+./nn_sandbox.py
 
 # Train a NN on the Griewank function with 200 epochs and a custom learning rate.
-./FFNN_sandbox.py --objective_function=Griewank -n 200 -l 0.001
+./nn_sandbox.py --objective_function=Griewank -n 200 -l 0.001
 
 # Train a NN with custom hidden layer sizes and batch size.
-./FFNN_sandbox.py --hidden_sizes 16 8 -b 10
+./nn_sandbox.py --hidden_sizes 16 8 -b 10
 
 # Train and compare multiple NNs with different hidden layer sizes and learning rates.
-./FFNN_sandbox.py --multi_train --multi_hidden_sizes 8 16 --multi_learning_rates 0.001 0.0001
+./nn_sandbox.py --multi_train --multi_hidden_sizes 8 16 --multi_learning_rates 0.001 0.0001
 
 """
 from typing import Tuple

@@ -10,13 +10,13 @@ and saves relevant plots.
 Usage:
 
 # Make script executable
-chmod +x ./jag_sens.py
+chmod +x ./sa_jag.py
 
 # Get help
-./jag_sens.py -h
+./sa_jag.py -h
 
 # Perform sensitivity analysis with 200 points and columns 1, 2, and 3
-./jag_sens.py -n 200 --exclude 3 4
+./sa_jag.py -n 200 --exclude 3 4
 """
 
 import argparse
