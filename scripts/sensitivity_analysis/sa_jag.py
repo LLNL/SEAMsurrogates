@@ -160,7 +160,7 @@ def main():
     print(Si["ST"] - Si["S1"])
 
     # Prepare the log message
-    num_test = 5000.0 - num_train
+    num_test = num_samples - num_train
 
     log_message = (
         f"Number of training points: {num_train}\n"
