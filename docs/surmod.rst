@@ -1,5 +1,5 @@
-surmod package
-==============
+SEAMsurrogates package
+======================
 
 Submodules
 ----------
@@ -12,10 +12,10 @@ surmod.bayesian\_optimization module
    :undoc-members:
    :show-inheritance:
 
-surmod.gp module
-----------------
+surmod.gaussian\_process\_regression module
+-------------------------------------------
 
-.. automodule:: surmod.gp
+.. automodule:: surmod.gaussian_process_regression
    :members:
    :undoc-members:
    :show-inheritance:
@@ -28,10 +28,10 @@ surmod.jag module
    :undoc-members:
    :show-inheritance:
 
-surmod.neural\_net module
--------------------------
+surmod.neural\_network module
+-----------------------------
 
-.. automodule:: surmod.neural_net
+.. automodule:: surmod.neural_network
    :members:
    :undoc-members:
    :show-inheritance:
@@ -44,18 +44,18 @@ surmod.parabola module
    :undoc-members:
    :show-inheritance:
 
-surmod.sens\_functions module
------------------------------
+surmod.sensitivity\_functions module
+------------------------------------
 
-.. automodule:: surmod.sens_functions
+.. automodule:: surmod.sensitivity_functions
    :members:
    :undoc-members:
    :show-inheritance:
 
-surmod.sensitivity module
--------------------------
+surmod.sensitivity\_analysis module
+-----------------------------------
 
-.. automodule:: surmod.sensitivity
+.. automodule:: surmod.sensitivity_analysis
    :members:
    :undoc-members:
    :show-inheritance:

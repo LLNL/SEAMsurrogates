@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.abspath(".."))
 
 # -- Project information -----------------------------------------------------
 
-project = "surmod"
+project = "SEAMsurrogates"
 copyright = "2025, Jason Bernstein, Emily Bogle, Andrew Gillette, Kevin Quinlan"
 author = "Jason Bernstein, Emily Bogle, Andrew Gillette, Kevin Quinlan"
 
