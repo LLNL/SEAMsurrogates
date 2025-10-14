@@ -47,5 +47,6 @@ sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.10
     # via sphinx
+sphinx_rtd_theme
 urllib3==1.26.13
     # via requests
