@@ -377,10 +377,11 @@ class BayesianOptimizer:
             ValueError: If an invalid acquisition function is specified.
         """
         synthetic_function = gp.load_test_function(self.objective_function)
+        epsilon = 1e-4
         bounds_low = [b[0] for b in synthetic_function._bounds]
         bounds_high = [b[1] for b in synthetic_function._bounds]
         input_size = len(bounds_low)
-        bounds = list(zip(bounds_low, bounds_high))
+        bounds = [(low + epsilon, high - epsilon) for low, high in zip(bounds_low, bounds_high)]
         y_max = (
             np.max(self.y_max_history) if len(self.y_max_history) > 0 else 0.0
         )
