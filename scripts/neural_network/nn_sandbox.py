@@ -214,7 +214,7 @@ def main():
     surface_plot = args.surface_plot
     verbose_plot = args.verbose_plot
 
-    # Weight initialization (defualt PyTorch)
+    # Weight initialization (default PyTorch)
     initialize_weights_normal = False
 
     # Generate random data from test function
@@ -370,7 +370,7 @@ def main():
         )
 
         if verbose_plot:
-            # Plot train and test loss over eopchs with (hyper)parameters
+            # Plot train and test loss over epochs with (hyper)parameters
             #   included
             nn.plot_losses_verbose(
                 train_losses,
