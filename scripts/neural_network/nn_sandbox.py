@@ -246,7 +246,7 @@ def main():
     scaler_x_train = None
     scaler_y_train = None
 
-    if normalize_x | scale_x:
+    if normalize_x or scale_x:
 
         # Create the scaler and fit it on training data
         if normalize_x:
@@ -273,7 +273,7 @@ def main():
         x_train = torch.from_numpy(x_train).float()
         x_test = torch.from_numpy(x_test).float()
 
-    if normalize_y | scale_y:
+    if normalize_y or scale_y:
 
         # Create the scaler and fit it on training data
         if normalize_y:
