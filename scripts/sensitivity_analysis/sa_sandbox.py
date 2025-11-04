@@ -255,12 +255,12 @@ def main():
         input1 = np.linspace(0, 1, 100)
         input2 = np.linspace(0, 1, 100)
         grid_input1, grid_input2 = np.meshgrid(input1, input2)
-        Xtest = np.column_stack((grid_input1.flatten(), grid_input2.flatten()))
-        predictions = gp_model.predict(Xtest)
+        x_test = np.column_stack((grid_input1.flatten(), grid_input2.flatten()))
+        predictions = gp_model.predict(x_test)
 
         plt.figure()
         plt.tricontourf(
-            Xtest[:, 0], Xtest[:, 1], predictions, levels=50, cmap="viridis"
+            x_test[:, 0], x_test[:, 1], predictions, levels=50, cmap="viridis"
         )
         plt.title("GP Model Prediction for Parabola")
         timestamp = datetime.datetime.now().strftime("%m%d_%H%M%S")
