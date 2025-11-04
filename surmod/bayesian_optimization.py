@@ -544,8 +544,8 @@ def plot_acquisition_comparison(
     max_output_UCB: np.ndarray,
     max_output_random: np.ndarray,
     kernel: str,
-    n_iter: str,
-    n_init: str,
+    n_iter: int,
+    n_init: int,
     objective_data: str = "___ data",
 ) -> None:
     """
