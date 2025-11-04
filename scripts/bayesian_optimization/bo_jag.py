@@ -116,15 +116,13 @@ def main():
         sys.exit(1)
 
     df = jag.load_data(n_samples=num_samples, random=False)
-    x = df.iloc[:, :5]
-    y = df.iloc[:, -1]
-    x_array = x.to_numpy()
-    y_array = y.to_numpy()
+    x = df.iloc[:, :5].to_numpy()
+    y = df.iloc[:, -1].to_numpy()
 
     bayes_opt_EI = bo.BayesianOptimizer(
         "JAG",
-        x_array,
-        y_array,
+        x,
+        y,
         normalize_y,
         kernel,
         isotropic=False,
@@ -135,8 +133,8 @@ def main():
 
     bayes_opt_PI = bo.BayesianOptimizer(
         "JAG",
-        x_array,
-        y_array,
+        x,
+        y,
         normalize_y,
         kernel,
         isotropic=False,
@@ -147,8 +145,8 @@ def main():
 
     bayes_opt_UCB = bo.BayesianOptimizer(
         "JAG",
-        x_array,
-        y_array,
+        x,
+        y,
         normalize_y,
         kernel,
         isotropic=False,
@@ -159,8 +157,8 @@ def main():
 
     bayes_opt_rand = bo.BayesianOptimizer(
         "JAG",
-        x_array,
-        y_array,
+        x,
+        y,
         normalize_y,
         kernel,
         isotropic=False,
