@@ -94,9 +94,7 @@ def sample_data(
     test_function = gp.load_test_function(objective_function)
 
     if objective_function == "Parabola":
-        X_data = sample_parabola(
-            n_initial, bounds_low, bounds_high, input_size
-        )
+        X_data = sample_parabola(n_initial, bounds_low, bounds_high, input_size)
     else:
         X_data = np.random.uniform(
             bounds_low, bounds_high, size=(n_initial, input_size)
@@ -381,10 +379,11 @@ class BayesianOptimizer:
         bounds_low = [b[0] for b in synthetic_function._bounds]
         bounds_high = [b[1] for b in synthetic_function._bounds]
         input_size = len(bounds_low)
-        bounds = [(low + epsilon, high - epsilon) for low, high in zip(bounds_low, bounds_high)]
-        y_max = (
-            np.max(self.y_max_history) if len(self.y_max_history) > 0 else 0.0
-        )
+        bounds = [
+            (low + epsilon, high - epsilon)
+            for low, high in zip(bounds_low, bounds_high)
+        ]
+        y_max = np.max(self.y_max_history) if len(self.y_max_history) > 0 else 0.0
 
         if acquisition not in ACQUISITION_FUNCTIONS:
             raise ValueError(
@@ -409,13 +408,9 @@ class BayesianOptimizer:
 
             def acq_wrap(x):
                 if acquisition == "EI":
-                    return -acq_func(
-                        x.reshape(1, -1), y_max, self.gp_model
-                    ).item()
+                    return -acq_func(x.reshape(1, -1), y_max, self.gp_model).item()
                 elif acquisition == "PI":
-                    return -acq_func(
-                        x.reshape(1, -1), self.gp_model, y_max
-                    ).item()
+                    return -acq_func(x.reshape(1, -1), self.gp_model, y_max).item()
                 elif acquisition == "UCB":
                     return -acq_func(
                         x.reshape(1, -1), self.gp_model, **acq_kwargs
@@ -498,9 +493,7 @@ class BayesianOptimizer:
                         X_remaining, gp_model, kappa=2.0
                     )
                 elif self.acquisition == "random":
-                    acquisition_values = np.random.uniform(
-                        size=X_remaining.shape[0]
-                    )
+                    acquisition_values = np.random.uniform(size=X_remaining.shape[0])
                 else:
                     raise ValueError("Invalid acquisition function.")
 
@@ -512,9 +505,7 @@ class BayesianOptimizer:
 
                 self.x_all_data = np.vstack((self.x_all_data, next_point))
                 self.y_all_data = np.append(self.y_all_data, next_value)
-                self.x_acquired = np.append(
-                    self.x_acquired, next_point, axis=0
-                )
+                self.x_acquired = np.append(self.x_acquired, next_point, axis=0)
                 self.y_acquired = np.append(self.y_acquired, next_value)
 
                 gp_model = self.gp_model_fit()

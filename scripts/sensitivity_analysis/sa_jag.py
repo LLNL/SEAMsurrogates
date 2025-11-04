@@ -96,9 +96,7 @@ def main():
     exclude = args.exclude
 
     df = jag.load_data(n_samples=num_samples, random=False)
-    x_train, x_test, y_train, y_test = jag.split_data(
-        df, n_train=args.num_train
-    )
+    x_train, x_test, y_train, y_test = jag.split_data(df, n_train=args.num_train)
     dim = x_train.shape[0]
 
     if exclude is not None:
@@ -138,9 +136,7 @@ def main():
     train_max_abserr, train_max_input = gp.compute_max_error(
         pred_train, y_train, x_train
     )
-    test_max_abserr, test_max_input = gp.compute_max_error(
-        pred_test, y_test, x_test
-    )
+    test_max_abserr, test_max_input = gp.compute_max_error(pred_test, y_test, x_test)
 
     variable_names = ["x1", "x2", "x3", "x4", "x5"]
     __, k = x_train.shape

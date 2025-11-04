@@ -210,9 +210,7 @@ def main():
         )
 
     if plot:
-        gp.plot_test_predictions(
-            x_test, y_test, gp_model, objective_data_name="JAG"
-        )
+        gp.plot_test_predictions(x_test, y_test, gp_model, objective_data_name="JAG")
 
 
 if __name__ == "__main__":

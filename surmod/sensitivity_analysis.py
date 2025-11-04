@@ -108,9 +108,7 @@ def simulate_data(
     return x_train, x_test, y_train, y_test
 
 
-def plot_test_predictions(
-    x_test, y_test, gp_model, objective_function: str
-) -> None:
+def plot_test_predictions(x_test, y_test, gp_model, objective_function: str) -> None:
     """
     Plot test set predictions vs. ground truth for a Gaussian Process model.
 
@@ -176,9 +174,7 @@ def plot_test_predictions(
     if not os.path.exists("./plots"):
         os.makedirs("./plots")
     timestamp = datetime.datetime.now().strftime("%m%d_%H%M%S")
-    path_to_plot = (
-        f"./plots/test_predictions_{objective_function}_{timestamp}.png"
-    )
+    path_to_plot = f"./plots/test_predictions_{objective_function}_{timestamp}.png"
     plt.savefig(path_to_plot, bbox_inches="tight")
     print(f"Figure saved to {path_to_plot}")
 

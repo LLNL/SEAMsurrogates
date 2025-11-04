@@ -181,9 +181,7 @@ def main():
     train_max_abserr, train_max_input = gp.compute_max_error(
         pred_train, y_train, x_train
     )
-    test_max_abserr, test_max_input = gp.compute_max_error(
-        pred_test, y_test, x_test
-    )
+    test_max_abserr, test_max_input = gp.compute_max_error(pred_test, y_test, x_test)
 
     if objective_function == "wingweight":
         variable_names = [
@@ -266,9 +264,7 @@ def main():
         )
         plt.title("GP Model Prediction for Parabola")
         timestamp = datetime.datetime.now().strftime("%m%d_%H%M%S")
-        plt.savefig(
-            f"./plots/{b1}_{b2}_{b12}_{objective_function}_{timestamp}.png"
-        )
+        plt.savefig(f"./plots/{b1}_{b2}_{b12}_{objective_function}_{timestamp}.png")
 
 
 if __name__ == "__main__":

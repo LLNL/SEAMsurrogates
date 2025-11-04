@@ -104,9 +104,7 @@ def load_test_function(objective_function: str):
             dim=2, negate=True, bounds=[(-32.768, 32.768), (-32.768, 32.768)]
         )
     elif objective_function == "Griewank":
-        test_function = Griewank(
-            dim=2, negate=True, bounds=[(-100, 45), (-100, 45)]
-        )
+        test_function = Griewank(dim=2, negate=True, bounds=[(-100, 45), (-100, 45)])
     elif objective_function == "Branin":
         test_function = Branin(negate=True)
     elif objective_function == "HolderTable":
@@ -163,9 +161,7 @@ def simulate_data(objective_function: str, num_train: int, num_test: int):
     return x_train, x_test, y_train, y_test
 
 
-def compute_max_error(
-    output: np.ndarray, target: np.ndarray, inputs: np.ndarray
-):
+def compute_max_error(output: np.ndarray, target: np.ndarray, inputs: np.ndarray):
     """
     Computes the maximum absolute error between prediction and target values.
 
@@ -257,9 +253,9 @@ def plot_gp_mean_prediction(
     X_grid = np.vstack([x1_grid.ravel(), x2_grid.ravel()]).T
 
     # Evaluate the test function on the original scale
-    Y_grid = np.array(
-        [test_function(torch.tensor(x)) for x in X_grid]
-    ).reshape(x1_grid.shape)
+    Y_grid = np.array([test_function(torch.tensor(x)) for x in X_grid]).reshape(
+        x1_grid.shape
+    )
 
     # Evaluate GP model on test grid
     if input_scaler is not None:
@@ -459,8 +455,7 @@ def plot_test_predictions(
     lower_bounds = prediction_mean.flatten() - 1.96 * std_dev.flatten()
     upper_bounds = prediction_mean.flatten() + 1.96 * std_dev.flatten()
     coverage = np.mean(
-        (observed.flatten() >= lower_bounds)
-        & (observed.flatten() <= upper_bounds)
+        (observed.flatten() >= lower_bounds) & (observed.flatten() <= upper_bounds)
     )
 
     # Calculate MSE
@@ -507,8 +502,6 @@ def plot_test_predictions(
     timestamp = datetime.datetime.now().strftime("%m%d_%H%M%S")
     if not os.path.exists("./plots"):
         os.makedirs("./plots")
-    path_to_plot = (
-        f"./plots/{objective_data_name}_test_predictions_{timestamp}.png"
-    )
+    path_to_plot = f"./plots/{objective_data_name}_test_predictions_{timestamp}.png"
     plt.savefig(path_to_plot, bbox_inches="tight")
     print(f"Figure saved to {path_to_plot}")

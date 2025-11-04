@@ -206,9 +206,7 @@ def main():
     contour = ax1.contourf(
         x1_grid, x2_grid, Y_grid, levels=25, cmap="inferno", alpha=0.3
     )
-    plt.colorbar(
-        contour, ax=ax1, label="Value of " + objective_function + " function"
-    )
+    plt.colorbar(contour, ax=ax1, label="Value of " + objective_function + " function")
     ax1.scatter(
         X_sample[:, 0],
         X_sample[:, 1],
@@ -218,9 +216,7 @@ def main():
     )
 
     # Add locations of global optima to first plot
-    global_optima, global_optimum_value = bo.get_synth_global_optima(
-        objective_function
-    )
+    global_optima, global_optimum_value = bo.get_synth_global_optima(objective_function)
     for idx, point in enumerate(global_optima):
         ax1.scatter(
             point[0],
@@ -232,9 +228,7 @@ def main():
     ax1.legend(loc="upper right")
 
     # Plot the initial acquisition function surface on ax2
-    acquisition_values = bo.expected_improvement(
-        X_grid, np.max(Y_sample), model
-    )
+    acquisition_values = bo.expected_improvement(X_grid, np.max(Y_sample), model)
     acquisition_values = acquisition_values.reshape(x1_grid.shape)
     acquisition_surface = ax2.plot_surface(  # type: ignore
         x1_grid, x2_grid, acquisition_values, cmap="viridis"
@@ -273,9 +267,7 @@ def main():
     ax3.set_zlabel("Value")  # type: ignore
     ax3.legend()
     ax3.set_title("Objective Function Contour and GP Mean Surface")
-    ax3.contour(
-        x1_grid, x2_grid, Y_grid, levels=25, cmap="inferno", linestyles="solid"
-    )
+    ax3.contour(x1_grid, x2_grid, Y_grid, levels=25, cmap="inferno", linestyles="solid")
 
     # Adjust layout to fit plots better
     fig.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1, wspace=0.4)
@@ -336,13 +328,9 @@ def main():
         if acquisition == "EI":
             acquisition_values = bo.expected_improvement(X_grid, y_max, model)
         elif acquisition == "UCB":
-            acquisition_values = bo.upper_confidence_bound(
-                X_grid, model, kappa=2.0
-            )
+            acquisition_values = bo.upper_confidence_bound(X_grid, model, kappa=2.0)
         elif acquisition == "PI":
-            acquisition_values = bo.probability_of_improvement(
-                X_grid, model, y_max
-            )
+            acquisition_values = bo.probability_of_improvement(X_grid, model, y_max)
         elif acquisition == "random":
             acquisition_values = np.random.uniform(size=X_grid.shape[0])
         else:

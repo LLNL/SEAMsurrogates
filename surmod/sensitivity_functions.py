@@ -64,9 +64,7 @@ def scale_inputs(
         Array of shape (n_samples, n_variables) with values scaled to their respective bounds.
     """
     if not ((0 <= X).all() and (X <= 1).all()):
-        raise ValueError(
-            "All elements in X must be within the [0, 1] interval."
-        )
+        raise ValueError("All elements in X must be within the [0, 1] interval.")
 
     min_vals = np.array([bounds[key][0] for key in bounds])
     max_vals = np.array([bounds[key][1] for key in bounds])

@@ -277,9 +277,7 @@ def main():
 
         # Create the scaler and fit it on training data
         if normalize_y:
-            print(
-                "Output data is being normalized to have mean 0, variance 1.\n"
-            )
+            print("Output data is being normalized to have mean 0, variance 1.\n")
             scaler_y_train = StandardScaler()
 
         if scale_y:
@@ -315,9 +313,7 @@ def main():
             len(multi_learning_rates),
             figsize=(15, 15),
         )
-        fig.suptitle(
-            f"Training and Testing Losses - {objective_function}", fontsize=16
-        )
+        fig.suptitle(f"Training and Testing Losses - {objective_function}", fontsize=16)
 
         # Train and test FFNN
         n = len(multi_hidden_sizes)
@@ -462,13 +458,9 @@ def main():
                     # Convert tensor to numpy if needed
                     grid_points_np = grid_points_tensor.numpy()
                     # Apply the scaler
-                    grid_points_scaled_np = input_scaler.transform(
-                        grid_points_np
-                    )
+                    grid_points_scaled_np = input_scaler.transform(grid_points_np)
                     # Convert back to tensor if you need to use it as a tensor
-                    grid_points_tensor = torch.from_numpy(
-                        grid_points_scaled_np
-                    ).float()
+                    grid_points_tensor = torch.from_numpy(grid_points_scaled_np).float()
 
                 # Compute model predictions
                 with torch.no_grad():

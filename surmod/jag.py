@@ -53,17 +53,13 @@ def load_data(
         )
         df = df.sample(n=n_samples, random_state=seed)
     else:
-        print(
-            f"Selecting the first {n_samples} samples from the JAG_10k dataset.\n"
-        )
+        print(f"Selecting the first {n_samples} samples from the JAG_10k dataset.\n")
         df = df.iloc[:n_samples]
 
     return df
 
 
-def split_data(
-    df: pd.DataFrame, LHD: bool = False, n_train: int = 100, seed: int = 42
-):
+def split_data(df: pd.DataFrame, LHD: bool = False, n_train: int = 100, seed: int = 42):
     """
     Split data into train and test sets using either Latin Hypercube Design
     (LHD) or random split.
@@ -107,9 +103,9 @@ def split_data(
         X_LHD = LHD_gen.random(n=n_train)
         # Scale LHD points to the range of X
         for i in range(k):
-            X_LHD[:, i] = X_LHD[:, i] * (
-                np.max(X[:, i]) - np.min(X[:, i])
-            ) + np.min(X[:, i])
+            X_LHD[:, i] = X_LHD[:, i] * (np.max(X[:, i]) - np.min(X[:, i])) + np.min(
+                X[:, i]
+            )
         # Build KDTree for nearest neighbor search
         tree = cKDTree(X)
 
