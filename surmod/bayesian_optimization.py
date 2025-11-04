@@ -477,7 +477,7 @@ class BayesianOptimizer:
             gp_model = self.gp_model_fit()
 
             remaining_indices = set(range(len(data))) - set(initial_indices)
-            for i in range(n_iter):
+            for _ in range(n_iter):
                 X_remaining = x[list(remaining_indices)]
                 # Compute acquisition values
                 if self.acquisition == "EI":
@@ -518,7 +518,7 @@ class BayesianOptimizer:
         #    optimization on "full" input space)
         else:
             n_iter = self.n_acquire
-            for i in range(n_iter):
+            for _ in range(n_iter):
                 # Propose the next sampling point by maximizing the acquisition
                 #   function
                 x_next = self.propose_location(self.acquisition, n_restarts=10)
