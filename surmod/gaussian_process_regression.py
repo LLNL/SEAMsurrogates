@@ -314,8 +314,8 @@ def plot_gp_mean_prediction(
 
     # Specify where to save plot of GP fit, create directory if it doesn't exist
     timestamp = datetime.datetime.now().strftime("%m%d_%H%M%S")
-    if not os.path.exists("./plots"):
-        os.makedirs("./plots")
+    if not os.path.exists("plots"):
+        os.makedirs("plots")
     path_to_plot = f"./plots/{objective_data_name}_gp_mean_{timestamp}.png"
     plt.tight_layout()
     plt.savefig(path_to_plot)
@@ -421,8 +421,8 @@ def plot_gp_std_dev_prediction(
 
     # Save plot
     timestamp = datetime.datetime.now().strftime("%m%d_%H%M%S")
-    if not os.path.exists("./plots"):
-        os.makedirs("./plots")
+    if not os.path.exists("plots"):
+        os.makedirs("plots")
     path_to_plot = f"./plots/{objective_data_name}_gp_std_dev_{timestamp}.png"
     plt.tight_layout()
     plt.savefig(path_to_plot)
@@ -500,8 +500,8 @@ def plot_test_predictions(
 
     # Save the plot
     timestamp = datetime.datetime.now().strftime("%m%d_%H%M%S")
-    if not os.path.exists("./plots"):
-        os.makedirs("./plots")
+    if not os.path.exists("plots"):
+        os.makedirs("plots")
     path_to_plot = f"./plots/{objective_data_name}_test_predictions_{timestamp}.png"
     plt.savefig(path_to_plot, bbox_inches="tight")
     print(f"Figure saved to {path_to_plot}")

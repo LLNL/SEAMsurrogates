@@ -410,7 +410,7 @@ def main():
 
     if save_animation and frames:
         # Create plots folder if it doesn't exist
-        plots_folder = "./plots"
+        plots_folder = "plots"
         if not os.path.exists(plots_folder):
             os.makedirs(plots_folder)
         timestamp = datetime.datetime.now().strftime("%m%d_%H%M%S")
@@ -454,8 +454,8 @@ def main():
     plt.tight_layout()
 
     if save_animation:
-        if not os.path.exists("./plots"):
-            os.makedirs("./plots")
+        if not os.path.exists("plots"):
+            os.makedirs("plots")
         timestamp = datetime.datetime.now().strftime("%m%d_%H%M%S")
         filepath = f"./plots/track_max_{objective_function}_{timestamp}.png"
         plt.savefig(filepath)
