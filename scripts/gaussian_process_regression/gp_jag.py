@@ -188,7 +188,7 @@ def main():
         f"Number of training points: {num_train}",
         f"Number of testing points: {num_test}",
         f"Kernel: {gp_model.kernel_}",
-        f"Isotrpotic kernel: {isotropic}",
+        f"Isotropic kernel: {isotropic}",
         f"Normalize y values: {normalize_y}",
         f"Train MSE: {train_mse:.5e}",
         f"Test MSE: {test_mse:.5e}",
