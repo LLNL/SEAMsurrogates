@@ -34,6 +34,7 @@ chmod +x ./gp_jag.py
 """
 
 import argparse
+import os
 import time
 import datetime
 
@@ -206,7 +207,7 @@ def main():
     if log:
         gp.log_results(
             log_message,
-            path_to_log="./output_log/JAG_Results.txt",
+            path_to_log=os.path.join("output_log", "JAG_Results.txt"),
         )
 
     if plot:

@@ -457,7 +457,9 @@ def main():
         if not os.path.exists("plots"):
             os.makedirs("plots")
         timestamp = datetime.datetime.now().strftime("%m%d_%H%M%S")
-        filepath = f"./plots/track_max_{objective_function}_{timestamp}.png"
+        filepath = os.path.join(
+            "plots", f"track_max_{objective_function}_{timestamp}.png"
+        )
         plt.savefig(filepath)
         print(f"Figure saved to {filepath}")
     else:

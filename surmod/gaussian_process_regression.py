@@ -197,8 +197,8 @@ def log_results(message: str, path_to_log: str):
         message (str): The message to be written to the log file.
         path_to_log (str): The path to the log file where the message will be appended.
     """
-    if not os.path.exists("./output_log"):
-        os.makedirs("./output_log")
+    if not os.path.exists("output_log"):
+        os.makedirs("output_log")
     with open(path_to_log, "a") as f:
         f.write("\n--------------------\n\n" + message)
     print(f"Output log saved to end of {path_to_log}.")
@@ -316,7 +316,9 @@ def plot_gp_mean_prediction(
     timestamp = datetime.datetime.now().strftime("%m%d_%H%M%S")
     if not os.path.exists("plots"):
         os.makedirs("plots")
-    path_to_plot = f"./plots/{objective_data_name}_gp_mean_{timestamp}.png"
+    path_to_plot = os.path.join(
+        "plots", f"{objective_data_name}_gp_mean_{timestamp}.png"
+    )
     plt.tight_layout()
     plt.savefig(path_to_plot)
     print(f"Figure saved to {path_to_plot}")
@@ -423,7 +425,9 @@ def plot_gp_std_dev_prediction(
     timestamp = datetime.datetime.now().strftime("%m%d_%H%M%S")
     if not os.path.exists("plots"):
         os.makedirs("plots")
-    path_to_plot = f"./plots/{objective_data_name}_gp_std_dev_{timestamp}.png"
+    path_to_plot = os.path.join(
+        "plots", f"{objective_data_name}_gp_std_dev_{timestamp}.png"
+    )
     plt.tight_layout()
     plt.savefig(path_to_plot)
     print(f"Figure saved to {path_to_plot}")
@@ -502,6 +506,8 @@ def plot_test_predictions(
     timestamp = datetime.datetime.now().strftime("%m%d_%H%M%S")
     if not os.path.exists("plots"):
         os.makedirs("plots")
-    path_to_plot = f"./plots/{objective_data_name}_test_predictions_{timestamp}.png"
+    path_to_plot = os.path.join(
+        "plots", f"{objective_data_name}_test_predictions_{timestamp}.png"
+    )
     plt.savefig(path_to_plot, bbox_inches="tight")
     print(f"Figure saved to {path_to_plot}")

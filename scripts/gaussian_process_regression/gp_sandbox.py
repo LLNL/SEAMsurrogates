@@ -32,6 +32,7 @@ chmod +x ./gp_sandbox.py
 
 import argparse
 import itertools
+import os
 import time
 import datetime
 
@@ -243,7 +244,9 @@ def main():
         if log:
             gp.log_results(
                 log_message,
-                path_to_log=f"./output_log/{objective_function}_{kernel}_alpha-{alpha}.txt",
+                path_to_log=os.path.join(
+                    "output_log", f"{objective_function}_{kernel}_alpha-{alpha}.txt"
+                ),
             )
 
         if plots:

@@ -17,6 +17,7 @@ chmod +x ./sa_sandbox.py
 """
 
 import argparse
+import os
 import time
 import datetime
 
@@ -237,7 +238,7 @@ def main():
     if log:
         gp.log_results(
             log_message,
-            path_to_log=f"./output_log/{objective_function}.txt",
+            path_to_log=os.path.join("output_log", f"{objective_function}.txt"),
         )
 
     sa.plot_test_predictions(x_test, y_test, gp_model, objective_function)
@@ -264,7 +265,11 @@ def main():
         )
         plt.title("GP Model Prediction for Parabola")
         timestamp = datetime.datetime.now().strftime("%m%d_%H%M%S")
-        plt.savefig(f"./plots/{b1}_{b2}_{b12}_{objective_function}_{timestamp}.png")
+        plt.savefig(
+            os.path.join(
+                "plots", f"{b1}_{b2}_{b12}_{objective_function}_{timestamp}.png"
+            )
+        )
 
 
 if __name__ == "__main__":
