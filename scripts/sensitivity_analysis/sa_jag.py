@@ -20,6 +20,7 @@ chmod +x ./sa_jag.py
 """
 
 import argparse
+import os
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -174,8 +175,7 @@ def main():
 
     if log:
         gp.log_results(
-            log_message,
-            path_to_log="./output_log/Jag_Results.txt",
+            log_message, path_to_log=os.path.join("output_log", "Jag_Results.txt")
         )
 
     sa.plot_test_predictions(x_test, y_test, gp_model, "JAG")
