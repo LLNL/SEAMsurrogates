@@ -139,7 +139,7 @@ def main():
     bounds_high = [b[1] for b in synth_function._bounds]
 
     # Sample initial points
-    X_sample, Y_sample = bo.sample_data(
+    x_sample, y_sample = bo.sample_data(
         objective_function,
         bounds_low,
         bounds_high,
@@ -150,8 +150,8 @@ def main():
     # Create BayesianOptimizer instance
     bopt = bo.BayesianOptimizer(
         objective_function=objective_function,
-        x_init=X_sample,
-        y_init=Y_sample,
+        x_init=x_sample,
+        y_init=y_sample,
         kernel=kernel,
         isotropic=isotropic,
         acquisition_function=acquisition,
@@ -166,11 +166,11 @@ def main():
     x1 = np.linspace(bounds_low[0], bounds_high[0], 100)
     x2 = np.linspace(bounds_low[1], bounds_high[1], 100)
     x1_grid, x2_grid = np.meshgrid(x1, x2)
-    X_grid = np.vstack([x1_grid.ravel(), x2_grid.ravel()]).T
-    Y_grid = np.array(
+    x_grid = np.vstack([x1_grid.ravel(), x2_grid.ravel()]).T
+    y_grid = np.array(
         [
             synth_function(torch.from_numpy(x.reshape(1, -1))).detach().numpy()
-            for x in X_grid
+            for x in x_grid
         ]
     ).reshape(x1_grid.shape)
 
@@ -204,12 +204,12 @@ def main():
     ax1.set_ylabel("x2")
     ax1.set_title("\n".join(title_lines))
     contour = ax1.contourf(
-        x1_grid, x2_grid, Y_grid, levels=25, cmap="inferno", alpha=0.3
+        x1_grid, x2_grid, y_grid, levels=25, cmap="inferno", alpha=0.3
     )
     plt.colorbar(contour, ax=ax1, label="Value of " + objective_function + " function")
     ax1.scatter(
-        X_sample[:, 0],
-        X_sample[:, 1],
+        x_sample[:, 0],
+        x_sample[:, 1],
         marker="x",
         color="green",
         label="Initial samples",
@@ -228,7 +228,7 @@ def main():
     ax1.legend(loc="upper right")
 
     # Plot the initial acquisition function surface on ax2
-    acquisition_values = bo.expected_improvement(X_grid, np.max(Y_sample), model)
+    acquisition_values = bo.expected_improvement(x_grid, np.max(y_sample), model)
     acquisition_values = acquisition_values.reshape(x1_grid.shape)
     acquisition_surface = ax2.plot_surface(  # type: ignore
         x1_grid, x2_grid, acquisition_values, cmap="viridis"
@@ -238,21 +238,21 @@ def main():
     ax2.set_zlabel("Acquisition Value")  # type: ignore
     ax2.set_title("Acquisition Function")
     scatter = ax2.scatter(
-        X_sample[:, 0],
-        X_sample[:, 1],
-        Y_sample.flatten(),
+        x_sample[:, 0],
+        x_sample[:, 1],
+        y_sample.flatten(),
         color="green",
         label="Sampled Points",
     )
     scatter.remove()  # Remove initial sample points to avoid clutter/distraction
 
     # Plot the initial GP mean surface on ax3
-    mu = model.predict(X_grid, return_std=False)
+    mu = model.predict(x_grid, return_std=False)
     if isinstance(mu, tuple):
         mu = mu[0]  # take the mean
     mu = mu.reshape(x1_grid.shape)
     gp_mean_max_value = np.max(mu)
-    gp_mean_max_location = X_grid[np.argmax(mu), :]
+    gp_mean_max_location = x_grid[np.argmax(mu), :]
     gp_surface = ax3.plot_surface(x1_grid, x2_grid, mu, cmap="viridis", alpha=0.6)  # type: ignore
     gp_mean_max = ax3.scatter(
         gp_mean_max_location[0],
@@ -267,7 +267,7 @@ def main():
     ax3.set_zlabel("Value")  # type: ignore
     ax3.legend()
     ax3.set_title("Objective Function Contour and GP Mean Surface")
-    ax3.contour(x1_grid, x2_grid, Y_grid, levels=25, cmap="inferno", linestyles="solid")
+    ax3.contour(x1_grid, x2_grid, y_grid, levels=25, cmap="inferno", linestyles="solid")
 
     # Adjust layout to fit plots better
     fig.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1, wspace=0.4)
@@ -326,13 +326,13 @@ def main():
 
         # Update the acquisition function surface with the new sample
         if acquisition == "EI":
-            acquisition_values = bo.expected_improvement(X_grid, y_max, model)
+            acquisition_values = bo.expected_improvement(x_grid, y_max, model)
         elif acquisition == "UCB":
-            acquisition_values = bo.upper_confidence_bound(X_grid, model, kappa=2.0)
+            acquisition_values = bo.upper_confidence_bound(x_grid, model, kappa=2.0)
         elif acquisition == "PI":
-            acquisition_values = bo.probability_of_improvement(X_grid, model, y_max)
+            acquisition_values = bo.probability_of_improvement(x_grid, model, y_max)
         elif acquisition == "random":
-            acquisition_values = np.random.uniform(size=X_grid.shape[0])
+            acquisition_values = np.random.uniform(size=x_grid.shape[0])
         else:
             raise ValueError(
                 "Invalid acquisition function. Choose 'EI', 'PI', 'UCB', or 'random."
@@ -361,9 +361,9 @@ def main():
             plt.pause(1.0)
 
         # Update the GP mean surface based on new sample
-        mu = model.predict(X_grid, return_std=False)
+        mu = model.predict(x_grid, return_std=False)
         gp_mean_max_value = np.max(mu)
-        gp_mean_max_location = X_grid[np.argmax(mu), :]
+        gp_mean_max_location = x_grid[np.argmax(mu), :]
         if isinstance(mu, tuple):
             mu = mu[0]  # take the mean
         mu = mu.reshape(x1_grid.shape)

@@ -100,10 +100,10 @@ def split_data(df: pd.DataFrame, LHD: bool = False, n_train: int = 100, seed: in
         )
         # Latin Hypercube Sampling for n_train points in k dimensions
         LHD_gen = qmc.LatinHypercube(d=k, seed=seed)  # type: ignore
-        X_LHD = LHD_gen.random(n=n_train)
+        x_lhd = LHD_gen.random(n=n_train)
         # Scale LHD points to the range of X
         for i in range(k):
-            X_LHD[:, i] = X_LHD[:, i] * (np.max(X[:, i]) - np.min(X[:, i])) + np.min(
+            x_lhd[:, i] = x_lhd[:, i] * (np.max(X[:, i]) - np.min(X[:, i])) + np.min(
                 X[:, i]
             )
         # Build KDTree for nearest neighbor search
@@ -125,7 +125,7 @@ def split_data(df: pd.DataFrame, LHD: bool = False, n_train: int = 100, seed: in
             return np.array(unique_distances), np.array(unique_indices)
 
         # Query for unique nearest neighbors
-        distances, index = query_unique(tree, X_LHD)
+        distances, index = query_unique(tree, x_lhd)
 
         x_train = X[index, :]
         y_train = y[index].reshape(-1, 1)

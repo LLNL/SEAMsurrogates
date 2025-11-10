@@ -250,18 +250,18 @@ def plot_gp_mean_prediction(
     x1 = np.linspace(bounds_low[0], bounds_high[0], 100)
     x2 = np.linspace(bounds_low[1], bounds_high[1], 100)
     x1_grid, x2_grid = np.meshgrid(x1, x2)
-    X_grid = np.vstack([x1_grid.ravel(), x2_grid.ravel()]).T
+    x_grid = np.vstack([x1_grid.ravel(), x2_grid.ravel()]).T
 
     # Evaluate the test function on the original scale
-    Y_grid = np.array([test_function(torch.tensor(x)) for x in X_grid]).reshape(
+    y_grid = np.array([test_function(torch.tensor(x)) for x in x_grid]).reshape(
         x1_grid.shape
     )
 
     # Evaluate GP model on test grid
     if input_scaler is not None:
-        X_grid = input_scaler.transform(X_grid)
+        x_grid = input_scaler.transform(x_grid)
 
-    mu = gp_model.predict(X_grid, return_std=False)
+    mu = gp_model.predict(x_grid, return_std=False)
     if isinstance(mu, tuple):
         mu = mu[0]  # take the mean
     mu = mu.reshape(x1_grid.shape)
@@ -275,7 +275,7 @@ def plot_gp_mean_prediction(
     ax.contour(
         x1_grid,
         x2_grid,
-        Y_grid,
+        y_grid,
         levels=20,
         cmap="inferno",
         linestyles="solid",
@@ -366,13 +366,13 @@ def plot_gp_std_dev_prediction(
     x1 = np.linspace(bounds_low[0], bounds_high[0], 100)
     x2 = np.linspace(bounds_low[1], bounds_high[1], 100)
     x1_grid, x2_grid = np.meshgrid(x1, x2)
-    X_grid = np.vstack([x1_grid.ravel(), x2_grid.ravel()]).T
+    x_grid = np.vstack([x1_grid.ravel(), x2_grid.ravel()]).T
 
     # Evaluate GP model variance on test grid
     if input_scaler is not None:
-        X_grid = input_scaler.transform(X_grid)
+        x_grid = input_scaler.transform(x_grid)
 
-    __, std = gp_model.predict(X_grid, return_std=True)  # type: ignore
+    __, std = gp_model.predict(x_grid, return_std=True)  # type: ignore
     std_grid = std.reshape(x1_grid.shape)
 
     # Create a 2D heatmap plot
