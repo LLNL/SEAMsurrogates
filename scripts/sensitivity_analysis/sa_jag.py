@@ -7,6 +7,11 @@ length scale adjustment, and exclusion of specific input columns.
 The script evaluates model performance, computes Sobol sensitivity indices,
 and saves relevant plots.
 
+Note:
+- For JAG data there are 5 input variables: x1, x2, x3, x4, x5.
+- Column exclusion uses zero-based indexing:
+    0 = x1, 1 = x2, 2 = x3, 3 = x4, 4 = x5.
+
 Usage:
 
 # Make script executable
@@ -15,8 +20,12 @@ chmod +x ./sa_jag.py
 # Get help
 ./sa_jag.py -h
 
-# Perform sensitivity analysis with 200 points and columns 1, 2, and 3
+# Perform sensitivity analysis with 200 training points, excluding columns 3 and 4
 ./sa_jag.py -n 200 --exclude 3 4
+
+# Perform sensitivity analysis with 150 training points, excluding columns 1 and 2,
+#  and save results to log file
+./sa_jag.py -n 150 -e 1 2 --log
 """
 
 import argparse
@@ -60,7 +69,8 @@ def parse_arguments():
         "--exclude",
         type=int,
         nargs="+",
-        help="Columns to exclude from fitting the surrogate model",
+        help="Zero-based column indices to exclude from fitting the surrogate model. "
+             "Valid values for JAG dataset: 0=x1, 1=x2, 2=x3, 3=x4, 4=x5.",
     )
 
     parser.add_argument(

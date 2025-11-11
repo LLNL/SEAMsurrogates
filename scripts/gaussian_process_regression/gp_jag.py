@@ -17,19 +17,19 @@ chmod +x ./gp_jag.py
 
 # Train a GP with 200 training points, 1000 total samples, and an isotropic RBF
 # kernel
-./gp_jag.py --n_samples=1000 --num_train=200 --kernel=rbf --isotropic
+./gp_jag.py --num_samples=1000 --num_train=200 --kernel=rbf --isotropic
 
 # Train a GP with 200 training points, 1000 total samples, and an anisotropic
 # RBF kernel
-./gp_jag.py --n_samples=1000 --num_train=200 --kernel=rbf
+./gp_jag.py --num_samples=1000 --num_train=200 --kernel=rbf
 
 # Train a GP with 200 training points, 1500 total samples, Matern kernel,
 # normalize y, and plot results
-./gp_jag.py --n_samples=1500 --num_train=200 --kernel=matern --normalize_y --plot
+./gp_jag.py --num_samples=1500 --num_train=200 --kernel=matern --normalize_y --plot
 
 # Train a GP with 300 training points, 2000 total samples, Matern kernel,
 # and save results to a log file
-./gp_jag.py --n_samples=2000 --num_train=300 --kernel=matern --log
+./gp_jag.py --num_samples=2000 --num_train=300 --kernel=matern --log
 
 """
 

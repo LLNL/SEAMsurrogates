@@ -13,11 +13,11 @@ chmod +x ./bo_sandbox.py
 
 # Perform BO for a parabola, start with 5 points, use the RBF kernel,
 #   and run the algorithm for 15 iterations
-./bo_sandbox.py -o Parabola -n 5 -k rbf -i 15
+./bo_sandbox.py -f Parabola -in 5 -k rbf -it 15
 
 # Perform BO for maximizing the Branin function, start with 5 points, use the
 #   Matern kernel, and run the algorithm for 20 iterations.  Set random seed to 2.
-./bo_sandbox.py -o Branin -n 4 -k matern -i 20 -s 2
+./bo_sandbox.py -f Branin -in 5 -k matern -it 20 -s 2
 """
 
 import argparse

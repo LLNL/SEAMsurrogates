@@ -24,10 +24,10 @@ chmod +x ./bo_jag.py
 ./bo_jag.py -h
 
 # Perform BO with 5 initial starting points, 30 iterations, and a Matern kernel
-./bo_jag.py -n 5 -i 30 -k matern
+./bo_jag.py -in 5 -it 30 -k matern
 
 # Perform BO with 10 initial starting points, 30 iterations, and an RBF kernel
-./bo_jag.py -n 10 -i 30 -k rbf
+./bo_jag.py -in 10 -it 30 -k rbf
 """
 
 import argparse
