@@ -4,6 +4,8 @@
 This script simulates data from a test function, fits a Gaussian process,
 and runs a sensitivity analysis with the fitted GP model.
 
+Note: Column exclusion uses zero-based indexing.
+
 Usage:
 
 # Make script executable
@@ -13,7 +15,11 @@ chmod +x ./sa_sandbox.py
 ./sa_sandbox.py -h
 
 # Perform sensitivity analysis on otlcircuit function with 200 training points
-./sa_sandbox.py -o otlcircuit -n 200
+./sa_sandbox.py -f otlcircuit -tr 200
+
+# Perform sensitivity analysis on wingweight function with 150 training points,
+# excluding columns 2 and 3 (zero-based indexing), and save results to log file
+./sa_sandbox.py -f wingweight -tr 150 -e 2 3 -l
 """
 
 import argparse
