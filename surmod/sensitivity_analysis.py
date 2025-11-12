@@ -13,7 +13,7 @@ import numpy as np
 import seaborn as sns
 from sklearn.metrics import mean_squared_error as mse
 
-from surmod.sensitivity_functions import (
+from surmod.test_functions import (
     parabola,
     otlcircuit,
     wingweight,
