@@ -17,20 +17,19 @@ chmod +x ./gp_jag.py
 
 # Train a GP with 200 training points, 1000 total samples, and an isotropic RBF
 # kernel
-./gp_jag.py --num_samples=1000 --num_train=200 --kernel=rbf --isotropic
+./gp_jag.py --num_train=200 --num_test=1000 --kernel=rbf --isotropic
 
 # Train a GP with 200 training points, 1000 total samples, and an anisotropic
 # RBF kernel
-./gp_jag.py --num_samples=1000 --num_train=200 --kernel=rbf
+./gp_jag.py --num_train=200 --num_test=1000 --kernel=rbf
 
 # Train a GP with 200 training points, 1500 total samples, Matern kernel,
 # normalize y, and plot results
-./gp_jag.py --num_samples=1500 --num_train=200 --kernel=matern --normalize_y --plot
+./gp_jag.py --num_train=200 --num_test=1500 --kernel=matern --normalize_y --plot
 
 # Train a GP with 300 training points, 2000 total samples, Matern kernel,
 # and save results to a log file
-./gp_jag.py --num_samples=2000 --num_train=300 --kernel=matern --log
-
+./gp_jag.py --num_train=300 --num_test=2000 --kernel=matern --log
 """
 
 import argparse
@@ -53,21 +52,19 @@ def parse_arguments():
     )
 
     parser.add_argument(
-        "-ns",
-        "--num_samples",
-        type=int,
-        default=10000,
-        help="Number of sample points to have for training and testing. Must be"
-        " 10000 or less.",
-    )
-
-    parser.add_argument(
         "-tr",
         "--num_train",
         type=int,
         default=100,
-        help="Number of points to have in training data set. Must be less than"
-        " n_samples. The rest of the n_sample points will be used for testing.",
+        help="Number of points in training data set.",
+    )
+
+    parser.add_argument(
+        "-te",
+        "--num_test",
+        type=int,
+        default=1_000,
+        help="Number of points in test data set.",
     )
 
     parser.add_argument(
@@ -112,6 +109,12 @@ def parse_arguments():
     )
 
     parser.add_argument(
+        "--LHD",
+        action="store_true",
+        help="Use an LHD design.",
+    )
+
+    parser.add_argument(
         "-s",
         "--seed",
         type=int,
@@ -131,8 +134,8 @@ def main():
     """
     # Parse command line arguments
     args = parse_arguments()
-    num_samples = args.num_samples
     num_train = args.num_train
+    num_test = args.num_test
     normalize_y = args.normalize_y
     kernel = args.kernel
     isotropic = args.isotropic
@@ -140,10 +143,16 @@ def main():
     plot = args.plot
     seed = args.seed
 
+    if num_train + num_test > 10_000:
+        raise ValueError("num_train plus num_test must be less than 10_000.")
+
     # Load and split data
-    df = jag.load_data(n_samples=num_samples, random=False)
+    df = jag.load_data(n_samples=num_train + num_test, random=False)
     x_train, x_test, y_train, y_test = jag.split_data(
-        df=df, LHD=False, n_train=num_train, seed=seed
+        df=df,
+        LHD=args.LHD,
+        n_train=num_train,
+        seed=seed,
     )
 
     # Instantiate GP model
@@ -180,8 +189,6 @@ def main():
     test_max_abserr, test_max_input = gp.compute_max_error(pred_test, y_test, x_test)  # type: ignore
 
     # Prepare the log message
-    num_test = num_samples - num_train
-
     timestamp = datetime.datetime.now().strftime("%m%d_%H%M%S")
     log_lines = [
         f"Run timestamp (%m%d_%H%M%S): {timestamp}",
