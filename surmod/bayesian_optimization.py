@@ -250,8 +250,8 @@ def upper_confidence_bound(
 
 
 ACQUISITION_FUNCTIONS = {
-    "EI": {"func": expected_improvement, "extra_kwargs": {}},
-    "PI": {"func": probability_of_improvement, "extra_kwargs": {}},
+    "EI": {"func": expected_improvement, "extra_kwargs": {"xi": 0.0}},
+    "PI": {"func": probability_of_improvement, "extra_kwargs": {"xi": 0.0}},
     "UCB": {"func": upper_confidence_bound, "extra_kwargs": {"kappa": 2.0}},
     "random": {"func": None, "extra_kwargs": {}},
 }
@@ -286,6 +286,7 @@ class BayesianOptimizer:
         acquisition_function: str = "EI",
         n_acquire: int = 10,
         seed: int = 42,
+        **acquisition_kwargs,
     ):
         self.objective_function = objective_function
         self.x_all_data = x_init
@@ -300,6 +301,7 @@ class BayesianOptimizer:
         self.acquisition = acquisition_function
         self.n_acquire = n_acquire
         self.seed = seed
+        self.acquisition_kwargs = acquisition_kwargs
         self.gp_model = None
         self.y_max_history = np.empty((0,))
 
@@ -404,16 +406,25 @@ class BayesianOptimizer:
             bounds_low, bounds_high, size=(n_restarts, input_size)
         )
 
+        # Merge default kwargs with user-provided kwargs (user overrides defaults)
+        merged_kwargs = {**acq_kwargs, **self.acquisition_kwargs}
+
         for x0 in starting_points:
 
             def acq_wrap(x):
                 if acquisition == "EI":
-                    return -acq_func(x.reshape(1, -1), y_max, self.gp_model).item()
+                    xi = self.acquisition_kwargs.get("xi", 0.0)
+                    return -acq_func(
+                        x.reshape(1, -1), y_max, self.gp_model, xi=xi
+                    ).item()
                 elif acquisition == "PI":
-                    return -acq_func(x.reshape(1, -1), self.gp_model, y_max).item()
+                    xi = self.acquisition_kwargs.get("xi", 0.0)
+                    return -acq_func(
+                        x.reshape(1, -1), self.gp_model, y_max, xi=xi
+                    ).item()
                 elif acquisition == "UCB":
                     return -acq_func(
-                        x.reshape(1, -1), self.gp_model, **acq_kwargs
+                        x.reshape(1, -1), self.gp_model, **merged_kwargs
                     ).item()
                 else:
                     raise ValueError("Invalid acquisition function.")
@@ -481,12 +492,20 @@ class BayesianOptimizer:
                 x_remaining = x[list(remaining_indices)]
                 # Compute acquisition values
                 if self.acquisition == "EI":
+                    xi = self.acquisition_kwargs.get("xi", 0.0)
                     acquisition_values = expected_improvement(
-                        x_remaining, np.max(self.y_all_data), gp_model
+                        x_remaining,
+                        np.max(self.y_all_data),
+                        gp_model,
+                        xi=xi,
                     )
                 elif self.acquisition == "PI":
+                    xi = self.acquisition_kwargs.get("xi", 0.0)
                     acquisition_values = probability_of_improvement(
-                        x_remaining, gp_model, np.max(self.y_all_data)
+                        x_remaining,
+                        gp_model,
+                        np.max(self.y_all_data),
+                        xi=xi,
                     )
                 elif self.acquisition == "UCB":
                     acquisition_values = upper_confidence_bound(

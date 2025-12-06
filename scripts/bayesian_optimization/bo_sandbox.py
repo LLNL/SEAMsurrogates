@@ -13,11 +13,11 @@ chmod +x ./bo_sandbox.py
 
 # Perform BO for a parabola, start with 5 points, use the RBF kernel,
 #   and run the algorithm for 15 iterations
-./bo_sandbox.py -f Parabola -in 5 -k rbf -it 15
+./bo_sandbox.py -f Parabola -in 5 -k rbf -it 15 -xi 0
 
 # Perform BO for maximizing the Branin function, start with 5 points, use the
 #   Matern kernel, and run the algorithm for 20 iterations.  Set random seed to 2.
-./bo_sandbox.py -f Branin -in 5 -k matern -it 20 -s 2
+./bo_sandbox.py -f Branin -in 5 -k matern -it 20 -s 2 -xi 0.01
 """
 
 import argparse
@@ -113,6 +113,14 @@ def parse_arguments():
         help="Option to save iterative plot as an animation.",
     )
 
+    parser.add_argument(
+        "-xi",
+        "--xi",
+        type=float,
+        default=0.0,
+        help="Exploration-exploitation trade-off parameter for EI and PI acquisition functions (non-negative float).",
+    )
+
     args = parser.parse_args()
 
     return args
@@ -129,6 +137,7 @@ def main():
     isotropic = args.isotropic
     seed = args.seed
     save_animation = args.save_animation
+    xi = args.xi
 
     os.environ["MPLCONFIGDIR"] = os.getcwd()  # useful for Lightning AI
 
@@ -157,6 +166,7 @@ def main():
         acquisition_function=acquisition,
         n_acquire=n_iteration,
         seed=seed,
+        xi=xi,
     )
 
     # Fit the initial GP model
@@ -228,7 +238,28 @@ def main():
     ax1.legend(loc="upper right")
 
     # Plot the initial acquisition function surface on ax2
-    acquisition_values = bo.expected_improvement(x_grid, np.max(y_sample), model)
+    if acquisition == "EI":
+        acquisition_values = bo.expected_improvement(
+            x_grid,
+            np.max(y_sample),
+            model,
+            xi=xi,
+        )
+    elif acquisition == "UCB":
+        acquisition_values = bo.upper_confidence_bound(x_grid, model, kappa=2.0)
+    elif acquisition == "PI":
+        acquisition_values = bo.probability_of_improvement(
+            x_grid,
+            model,
+            np.max(y_sample),
+            xi=xi,
+        )
+    elif acquisition == "random":
+        acquisition_values = np.random.uniform(size=x_grid.shape[0])
+    else:
+        raise ValueError(
+            "Invalid acquisition function. Choose 'EI', 'PI', 'UCB', or 'random."
+        )
     acquisition_values = acquisition_values.reshape(x1_grid.shape)
     acquisition_surface = ax2.plot_surface(  # type: ignore
         x1_grid, x2_grid, acquisition_values, cmap="viridis"
@@ -326,11 +357,13 @@ def main():
 
         # Update the acquisition function surface with the new sample
         if acquisition == "EI":
-            acquisition_values = bo.expected_improvement(x_grid, y_max, model)
+            acquisition_values = bo.expected_improvement(x_grid, y_max, model, xi=xi)
         elif acquisition == "UCB":
             acquisition_values = bo.upper_confidence_bound(x_grid, model, kappa=2.0)
         elif acquisition == "PI":
-            acquisition_values = bo.probability_of_improvement(x_grid, model, y_max)
+            acquisition_values = bo.probability_of_improvement(
+                x_grid, model, y_max, xi=xi
+            )
         elif acquisition == "random":
             acquisition_values = np.random.uniform(size=x_grid.shape[0])
         else:

@@ -24,10 +24,10 @@ chmod +x ./bo_jag.py
 ./bo_jag.py -h
 
 # Perform BO with 5 initial starting points, 30 iterations, and a Matern kernel
-./bo_jag.py -in 5 -it 30 -k matern
+./bo_jag.py -in 5 -it 30 -k matern -xi 0
 
 # Perform BO with 10 initial starting points, 30 iterations, and an RBF kernel
-./bo_jag.py -in 10 -it 30 -k rbf
+./bo_jag.py -in 10 -it 30 -k rbf -xi 0.01
 """
 
 import argparse
@@ -92,6 +92,14 @@ def parse_arguments():
         help="Set random seed for reproducibility.",
     )
 
+    parser.add_argument(
+        "-xi",
+        "--xi",
+        type=float,
+        default=0.0,
+        help="Exploration-exploitation trade-off parameter for EI and PI acquisition functions (non-negative float).",
+    )
+
     args = parser.parse_args()
 
     return args
@@ -106,6 +114,7 @@ def main():
     n_init = args.n_init
     n_iter = args.n_iter
     seed = args.seed
+    xi = args.xi
 
     # Warning and terminate if n_iter + n_init > num_samples
     if n_iter + n_init > num_samples:
@@ -129,6 +138,7 @@ def main():
         acquisition_function="EI",
         n_acquire=n_iter,
         seed=seed,
+        xi=xi,
     )
 
     bayes_opt_PI = bo.BayesianOptimizer(
@@ -141,6 +151,7 @@ def main():
         acquisition_function="PI",
         n_acquire=n_iter,
         seed=seed,
+        xi=xi,
     )
 
     bayes_opt_UCB = bo.BayesianOptimizer(
