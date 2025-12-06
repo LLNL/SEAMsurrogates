@@ -250,10 +250,10 @@ def upper_confidence_bound(
 
 
 ACQUISITION_FUNCTIONS = {
-    "EI": {"func": expected_improvement, "extra_kwargs": {"xi": 0.0}},
-    "PI": {"func": probability_of_improvement, "extra_kwargs": {"xi": 0.0}},
-    "UCB": {"func": upper_confidence_bound, "extra_kwargs": {"kappa": 2.0}},
-    "random": {"func": None, "extra_kwargs": {}},
+    "EI": expected_improvement,
+    "PI": probability_of_improvement,
+    "UCB": upper_confidence_bound,
+    "random": None,
 }
 
 
@@ -392,9 +392,7 @@ class BayesianOptimizer:
                 "Invalid acquisition function. Choose 'EI', 'PI', 'UCB', or 'random'."
             )
 
-        acq_info = ACQUISITION_FUNCTIONS[acquisition]
-        acq_func = acq_info["func"]
-        acq_kwargs = acq_info["extra_kwargs"]
+        acq_func = ACQUISITION_FUNCTIONS[acquisition]
 
         if acquisition == "random":
             # Just pick a random point in the domain
@@ -405,9 +403,6 @@ class BayesianOptimizer:
         starting_points = np.random.uniform(
             bounds_low, bounds_high, size=(n_restarts, input_size)
         )
-
-        # Merge default kwargs with user-provided kwargs (user overrides defaults)
-        merged_kwargs = {**acq_kwargs, **self.acquisition_kwargs}
 
         for x0 in starting_points:
 
@@ -423,8 +418,9 @@ class BayesianOptimizer:
                         x.reshape(1, -1), self.gp_model, y_max, xi=xi
                     ).item()
                 elif acquisition == "UCB":
+                    kappa = self.acquisition_kwargs.get("kappa", 2.0)
                     return -acq_func(
-                        x.reshape(1, -1), self.gp_model, **merged_kwargs
+                        x.reshape(1, -1), self.gp_model, kappa=kappa
                     ).item()
                 else:
                     raise ValueError("Invalid acquisition function.")
@@ -508,8 +504,11 @@ class BayesianOptimizer:
                         xi=xi,
                     )
                 elif self.acquisition == "UCB":
+                    kappa = self.acquisition_kwargs.get("kappa", 2.0)
                     acquisition_values = upper_confidence_bound(
-                        x_remaining, gp_model, kappa=2.0
+                        x_remaining,
+                        gp_model,
+                        kappa=kappa,
                     )
                 elif self.acquisition == "random":
                     acquisition_values = np.random.uniform(size=x_remaining.shape[0])

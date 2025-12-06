@@ -24,10 +24,10 @@ chmod +x ./bo_jag.py
 ./bo_jag.py -h
 
 # Perform BO with 5 initial starting points, 30 iterations, and a Matern kernel
-./bo_jag.py -in 5 -it 30 -k matern -xi 0
+./bo_jag.py -in 5 -it 30 -k matern -xi 0 -kappa 0
 
 # Perform BO with 10 initial starting points, 30 iterations, and an RBF kernel
-./bo_jag.py -in 10 -it 30 -k rbf -xi 0.01
+./bo_jag.py -in 10 -it 30 -k rbf -xi 0.01 -kappa 0.01
 """
 
 import argparse
@@ -100,6 +100,14 @@ def parse_arguments():
         help="Exploration-exploitation trade-off parameter for EI and PI acquisition functions (non-negative float).",
     )
 
+    parser.add_argument(
+        "-kappa",
+        "--kappa",
+        type=float,
+        default=2.0,
+        help="Exploration-exploitation trade-off parameter for UCB acquisition function (non-negative float).",
+    )
+
     args = parser.parse_args()
 
     return args
@@ -115,6 +123,7 @@ def main():
     n_iter = args.n_iter
     seed = args.seed
     xi = args.xi
+    kappa = args.kappa
 
     # Warning and terminate if n_iter + n_init > num_samples
     if n_iter + n_init > num_samples:
@@ -164,6 +173,7 @@ def main():
         acquisition_function="UCB",
         n_acquire=n_iter,
         seed=seed,
+        kappa=kappa,
     )
 
     bayes_opt_rand = bo.BayesianOptimizer(

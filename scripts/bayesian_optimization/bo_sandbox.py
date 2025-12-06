@@ -121,6 +121,14 @@ def parse_arguments():
         help="Exploration-exploitation trade-off parameter for EI and PI acquisition functions (non-negative float).",
     )
 
+    parser.add_argument(
+        "-kappa",
+        "--kappa",
+        type=float,
+        default=2.0,
+        help="Exploration-exploitation trade-off parameter for UCB acquisition function (non-negative float).",
+    )
+
     args = parser.parse_args()
 
     return args
@@ -138,6 +146,7 @@ def main():
     seed = args.seed
     save_animation = args.save_animation
     xi = args.xi
+    kappa = args.kappa
 
     os.environ["MPLCONFIGDIR"] = os.getcwd()  # useful for Lightning AI
 
@@ -167,6 +176,7 @@ def main():
         n_acquire=n_iteration,
         seed=seed,
         xi=xi,
+        kappa=kappa,
     )
 
     # Fit the initial GP model
@@ -246,7 +256,11 @@ def main():
             xi=xi,
         )
     elif acquisition == "UCB":
-        acquisition_values = bo.upper_confidence_bound(x_grid, model, kappa=2.0)
+        acquisition_values = bo.upper_confidence_bound(
+            x_grid,
+            model,
+            kappa=kappa,
+        )
     elif acquisition == "PI":
         acquisition_values = bo.probability_of_improvement(
             x_grid,
@@ -359,7 +373,7 @@ def main():
         if acquisition == "EI":
             acquisition_values = bo.expected_improvement(x_grid, y_max, model, xi=xi)
         elif acquisition == "UCB":
-            acquisition_values = bo.upper_confidence_bound(x_grid, model, kappa=2.0)
+            acquisition_values = bo.upper_confidence_bound(x_grid, model, kappa=kappa)
         elif acquisition == "PI":
             acquisition_values = bo.probability_of_improvement(
                 x_grid, model, y_max, xi=xi
