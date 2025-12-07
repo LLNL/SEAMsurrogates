@@ -203,6 +203,8 @@ def main():
         n_iter,
         n_init,
         "JAG",
+        xi=xi,
+        kappa=kappa,
     )
 
 

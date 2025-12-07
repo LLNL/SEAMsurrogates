@@ -569,6 +569,8 @@ def plot_acquisition_comparison(
     n_iter: int,
     n_init: int,
     objective_data: str = "___ data",
+    xi: float = 0.0,
+    kappa: float = 2.0,
 ) -> None:
     """
     Plot the maximum observed output versus iteration for different acquisition
@@ -603,25 +605,25 @@ def plot_acquisition_comparison(
         max_output_EI,
         marker="o",
         c="blue",
-        label="EI",
+        label=f"EI (xi = {xi})",
     )
     plt.plot(
         max_output_PI,
         marker="o",
         c="orange",
-        label="PI",
+        label=f"PI (xi = {xi})",
     )
     plt.plot(
         max_output_UCB,
         marker="o",
         c="green",
-        label="UCB",
+        label=f"UCB (kappa = {kappa})",
     )
     plt.plot(
         max_output_random,
         marker="o",
         c="purple",
-        label="rand",
+        label="Uniform Random",
     )
     plt.title("Maximum Observed Output vs Iteration")
     plt.xlabel("Iteration")
