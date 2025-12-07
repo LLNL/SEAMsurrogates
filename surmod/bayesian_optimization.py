@@ -376,6 +376,7 @@ class BayesianOptimizer:
         Raises:
             ValueError: If an invalid acquisition function is specified.
         """
+        rng = np.random.RandomState(self.seed)
         synthetic_function = gp.load_test_function(self.objective_function)
         epsilon = 1e-4
         bounds_low = [b[0] for b in synthetic_function._bounds]
@@ -396,11 +397,11 @@ class BayesianOptimizer:
 
         if acquisition == "random":
             # Just pick a random point in the domain
-            return np.random.uniform(bounds_low, bounds_high)
+            return rng.uniform(bounds_low, bounds_high)
 
         max_val = -np.inf
         max_x = np.asarray([np.inf] * input_size)
-        starting_points = np.random.uniform(
+        starting_points = rng.uniform(
             bounds_low, bounds_high, size=(n_restarts, input_size)
         )
 
@@ -460,6 +461,9 @@ class BayesianOptimizer:
         Returns:
             x_all_data, y_all_data, y_max_history: Tuple[np.ndarray, np.ndarray, np.ndarray]
         """
+        # Ensure reproducibility with initial points
+        rng = np.random.RandomState(self.seed)
+
         # Dataset mode (acquiring from precollected data, "discrete" optimization
         #   on "limited" data)
         if data is not None:
@@ -467,7 +471,7 @@ class BayesianOptimizer:
             y = data.iloc[:, -1].to_numpy(dtype=float)
             n_iter = self.n_acquire
 
-            initial_indices = np.random.choice(
+            initial_indices = rng.choice(
                 np.arange(len(data)), size=n_init, replace=False
             )
             x_init = x[initial_indices]
@@ -511,7 +515,7 @@ class BayesianOptimizer:
                         kappa=kappa,
                     )
                 elif self.acquisition == "random":
-                    acquisition_values = np.random.uniform(size=x_remaining.shape[0])
+                    acquisition_values = rng.uniform(size=x_remaining.shape[0])
                 else:
                     raise ValueError("Invalid acquisition function.")
 
