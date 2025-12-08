@@ -241,3 +241,55 @@ def wingweight(
     wing_weight = np.prod(factors, axis=0) + (Sw * Wp)
 
     return wing_weight
+
+
+def borehole(
+    x: npt.NDArray,
+    *args,
+) -> npt.NDArray:
+    """
+    This function computes the water flow rate through a borehole.
+
+    Parameters
+    ----------
+    x : np.ndarray
+        Array of shape (n_samples, n_variables) with normalized values in [0, 1].
+        Each column corresponds to an input variable, scaled according to its bounds.
+
+    Returns
+    -------
+    np.ndarray
+        Array of borehole water flow rates (in m^3/year) for each input sample.
+
+    References
+    ----------
+    [1] Formula source: Borehole Function, Simon Fraser University,
+        https://www.sfu.ca/~ssurjano/borehole.html (accessed Dec 2025).
+    """
+    # Define variable bounds
+    bounds = {
+        "rw": (0.05, 0.15),  # radius of borehole (m)
+        "r": (100, 50000),  # radius of influence (m)
+        "Tu": (63070, 115600),  # transmissivity upper aquifer (m^2/year)
+        "Hu": (990, 1110),  # potentiometric head upper aquifer (m)
+        "Tl": (63.1, 116),  # transmissivity lower aquifer (m^2/year)
+        "Hl": (700, 820),  # potentiometric head lower aquifer (m)
+        "L": (1120, 1680),  # length of borehole (m)
+        "Kw": (9855, 12045),  # hydraulic conductivity of borehole (m/year)
+    }
+
+    # Scale inputs from unit-cube to actual ranges
+    x_scaled = scale_inputs(x, bounds)
+
+    # Unpack variables
+    rw, r, Tu, Hu, Tl, Hl, L, Kw = x_scaled.T
+
+    # Compute borehole flow rate
+    frac1 = 2 * np.pi * Tu * (Hu - Hl)
+    frac2a = 2 * L * Tu / (np.log(r / rw) * rw**2 * Kw)
+    frac2b = Tu / Tl
+    frac2 = np.log(r / rw) * (1 + frac2a + frac2b)
+
+    flow_rate = frac1 / frac2
+
+    return flow_rate
