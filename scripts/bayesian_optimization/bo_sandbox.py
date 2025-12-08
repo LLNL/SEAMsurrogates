@@ -255,18 +255,18 @@ def main():
             model,
             xi=xi,
         )
-    elif acquisition == "UCB":
-        acquisition_values = bo.upper_confidence_bound(
-            x_grid,
-            model,
-            kappa=kappa,
-        )
     elif acquisition == "PI":
         acquisition_values = bo.probability_of_improvement(
             x_grid,
             model,
             np.max(y_sample),
             xi=xi,
+        )
+    elif acquisition == "UCB":
+        acquisition_values = bo.upper_confidence_bound(
+            x_grid,
+            model,
+            kappa=kappa,
         )
     elif acquisition == "random":
         acquisition_values = np.random.uniform(size=x_grid.shape[0])
@@ -372,12 +372,12 @@ def main():
         # Update the acquisition function surface with the new sample
         if acquisition == "EI":
             acquisition_values = bo.expected_improvement(x_grid, y_max, model, xi=xi)
-        elif acquisition == "UCB":
-            acquisition_values = bo.upper_confidence_bound(x_grid, model, kappa=kappa)
         elif acquisition == "PI":
             acquisition_values = bo.probability_of_improvement(
                 x_grid, model, y_max, xi=xi
             )
+        elif acquisition == "UCB":
+            acquisition_values = bo.upper_confidence_bound(x_grid, model, kappa=kappa)
         elif acquisition == "random":
             acquisition_values = np.random.uniform(size=x_grid.shape[0])
         else:
