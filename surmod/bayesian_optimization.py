@@ -540,6 +540,8 @@ class BayesianOptimizer:
         #    optimization on "full" input space)
         else:
             n_iter = self.n_acquire
+            # Initialize y_max_history with the best initial value
+            self.y_max_history = np.array([np.max(self.y_init)], dtype=float)
             for _ in range(n_iter):
                 # Propose the next sampling point by maximizing the acquisition
                 #   function
