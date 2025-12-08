@@ -391,7 +391,7 @@ def plot_losses_multiplot(
             ax.plot(range(1, num_epochs + 1), test_losses, label="Test Loss")
             ax.set_yscale("log")
             ax.set_title(
-                f"hid_dim={hid_sz}, lr={lr}\nFinal Test Loss (RMSE): ,"
+                f"hid_dim={hid_sz}, lr={lr}\nFinal Test Loss (RMSE): "
                 f"{final_test_rmse:.5f}"
             )
             ax.set_xlabel("Epochs")
