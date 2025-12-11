@@ -440,17 +440,17 @@ class BayesianOptimizer:
         return x_next
 
     def bayes_opt(
-        self, data: Optional[pd.DataFrame] = None, n_init: int = 10
+        self, df: Optional[pd.DataFrame] = None, n_init: int = 10
     ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """
         Unified Bayesian Optimization method for both dataset and synthetic function.
 
-        If all `data` is provided (a DataFrame), runs dataset-based ("discrete") BO.
+        If data is provided (as a DataFrame), runs dataset-based ("discrete") BO.
         Otherwise, runs synthetic function ("continuous") BO using the class's
         objective_function.
 
         Args:
-            data: pd.DataFrame or None
+            df: pd.DataFrame or None
                 If provided, DataFrame with columns x0...xn and 'y'
             n_init: int or None
                 Number of initial points (dataset mode)
@@ -466,15 +466,13 @@ class BayesianOptimizer:
 
         # Dataset mode (acquiring from precollected data, "discrete" optimization
         #   on "limited" data)
-        if data is not None:
-            data = (data - data.min()) / (data.max() - data.min())
-            x = data.iloc[:, :-1].to_numpy(dtype=float)
-            y = data.iloc[:, -1].to_numpy(dtype=float)
+        if df is not None:
+            df = (df - df.min()) / (df.max() - df.min())
+            x = df.iloc[:, :-1].to_numpy(dtype=float)
+            y = df.iloc[:, -1].to_numpy(dtype=float)
             n_iter = self.n_acquire
 
-            initial_indices = rng.choice(
-                np.arange(len(data)), size=n_init, replace=False
-            )
+            initial_indices = rng.choice(np.arange(len(df)), size=n_init, replace=False)
             x_init = x[initial_indices]
             y_init = y[initial_indices]
 
@@ -488,7 +486,7 @@ class BayesianOptimizer:
 
             gp_model = self.gp_model_fit()
 
-            remaining_indices = set(range(len(data))) - set(initial_indices)
+            remaining_indices = set(range(len(df))) - set(initial_indices)
             for _ in range(n_iter):
                 x_remaining = x[list(remaining_indices)]
                 # Compute acquisition values
