@@ -56,7 +56,7 @@ def parse_arguments():
         "-ny",
         "--normalize_y",
         action="store_true",
-        help="Scale all columns of the data to [0,1]",
+        help="Normalize target values by removing the mean and scaling to unit variance before fitting the GP.",
     )
 
     parser.add_argument(
