@@ -467,6 +467,7 @@ class BayesianOptimizer:
         # Dataset mode (acquiring from precollected data, "discrete" optimization
         #   on "limited" data)
         if data is not None:
+            data = (data - data.min()) / (data.max() - data.min())
             x = data.iloc[:, :-1].to_numpy(dtype=float)
             y = data.iloc[:, -1].to_numpy(dtype=float)
             n_iter = self.n_acquire
@@ -630,6 +631,16 @@ def plot_acquisition_comparison(
     plt.title("Maximum Observed Output vs Iteration")
     plt.xlabel("Iteration")
     plt.ylabel("Maximum Output")
+
+    # Set y-axis limits
+    y_min = min(
+        max_output_EI.min(),
+        max_output_PI.min(),
+        max_output_UCB.min(),
+        max_output_random.min(),
+    )
+    plt.ylim(0.9 * y_min, 1.025)
+
     plt.legend()
     plt.grid()
 
