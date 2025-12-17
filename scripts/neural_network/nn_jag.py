@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 """
-This script trains a neural network on the JAG ICF data.  It provides options
+This script trains a neural network on the JAG ICF data. It provides options
 for specifying the number of epochs, batch size, sizes of hidden layers, and
-learning rate.  It saves two images to the directory containing this script.
+learning rate. It saves two metric plots to the directory containing this script.
 
 Usage:
 
@@ -40,19 +40,19 @@ def parse_arguments():
     )
 
     parser.add_argument(
-        "-ns",
-        "--num_samples",
-        type=int,
-        default=10000,
-        help="Number of data samples pulled from the jag_10k dataset.",
-    )
-
-    parser.add_argument(
         "-tr",
         "--num_train",
         type=int,
-        default=None,
-        help="Number of test samples (default: 75%% of num_samples).",
+        default=400,
+        help="Number of train samples (default: 400).",
+    )
+
+    parser.add_argument(
+        "-te",
+        "--num_test",
+        type=int,
+        default=100,
+        help="Number of test samples (default: 100).",
     )
 
     parser.add_argument(
@@ -112,17 +112,22 @@ def parse_arguments():
 def main():
     # Parse command line arguments
     args = parse_arguments()
-    num_samples = args.num_samples
-    if args.num_train is None:
-        num_train = int(0.75 * args.num_samples)
-    else:
-        num_train = args.num_train
+    num_train = args.num_train
+    num_test = args.num_test
     seed = args.seed
     num_epochs = args.num_epochs
     batch_size = args.batch_size
     hidden_sizes = args.hidden_sizes
     learning_rate = args.learning_rate
     verbose_plot = args.verbose_plot
+
+    # Check data availability
+    num_samples = num_test + num_train
+    if num_samples > 10000:
+        raise ValueError(
+            f"Requested samples ({num_samples}) exceed JAG_10k dataset size "
+            "limit (10000)."
+        )
 
     # Weight initialization (normal with mean = 0, sd = 0.1)
     initialize_weights_normal = True
@@ -156,7 +161,7 @@ def main():
 
     if verbose_plot:
         # Plot train and test loss over epochs with (hyper)parameters included
-        #   no scaling needed for JAG data (not currently implemented)
+        #   scaling for JAG data (not currently implemented; not needed)
         nn.plot_losses_verbose(
             train_losses,
             test_losses,
