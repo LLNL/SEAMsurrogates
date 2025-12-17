@@ -15,21 +15,19 @@ chmod +x ./gp_jag.py
 
 # Example usages:
 
-# Train a GP with 200 training points, 1000 total samples, and an isotropic RBF
-# kernel
-./gp_jag.py --num_samples=1000 --num_train=200 --kernel=rbf --isotropic
+# Train a GP with 200 training points and an isotropic RBF kernel
+./gp_jag.py --num_train=200 --kernel=rbf --isotropic
 
-# Train a GP with 200 training points, 1000 total samples, and an anisotropic
-# RBF kernel
-./gp_jag.py --num_samples=1000 --num_train=200 --kernel=rbf
+# Train a GP with 200 training points and an anisotropic RBF kernel
+./gp_jag.py --num_train=200 --kernel=rbf
 
-# Train a GP with 200 training points, 1500 total samples, Matern kernel,
+# Train a GP with 200 training points, Matern kernel,
 # normalize y, and plot results
-./gp_jag.py --num_samples=1500 --num_train=200 --kernel=matern --normalize_y --plot
+./gp_jag.py --num_train=200 --kernel=matern --normalize_y --plot
 
-# Train a GP with 300 training points, 2000 total samples, Matern kernel,
+# Train a GP with 300 training points, 300 train samples, Matern kernel,
 # and save results to a log file
-./gp_jag.py --num_samples=2000 --num_train=300 --kernel=matern --log
+./gp_jag.py --num_train=300 --kernel=matern --log
 
 """
 
@@ -53,21 +51,19 @@ def parse_arguments():
     )
 
     parser.add_argument(
-        "-ns",
-        "--num_samples",
-        type=int,
-        default=10000,
-        help="Number of sample points to have for training and testing. Must be"
-        " 10000 or less.",
-    )
-
-    parser.add_argument(
         "-tr",
         "--num_train",
         type=int,
+        default=400,
+        help="Number of train samples (default: 400).",
+    )
+
+    parser.add_argument(
+        "-te",
+        "--num_test",
+        type=int,
         default=100,
-        help="Number of points to have in training data set. Must be less than"
-        " n_samples. The rest of the n_sample points will be used for testing.",
+        help="Number of test samples (default: 100).",
     )
 
     parser.add_argument(
@@ -131,14 +127,22 @@ def main():
     """
     # Parse command line arguments
     args = parse_arguments()
-    num_samples = args.num_samples
     num_train = args.num_train
+    num_test = args.num_test
     normalize_y = args.normalize_y
     kernel = args.kernel
     isotropic = args.isotropic
     log = args.log
     plot = args.plot
     seed = args.seed
+
+    # Check data availability
+    num_samples = num_test + num_train
+    if num_samples > 10000:
+        raise ValueError(
+            f"Requested samples ({num_samples}) exceed JAG_10k dataset size "
+            "limit (10000)."
+        )
 
     # Load and split data
     df = jag.load_data(n_samples=num_samples, random=False)
