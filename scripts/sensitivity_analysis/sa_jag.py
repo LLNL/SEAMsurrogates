@@ -20,12 +20,13 @@ chmod +x ./sa_jag.py
 # Get help
 ./sa_jag.py -h
 
-# Perform sensitivity analysis with 200 training points, excluding columns 3 and 4
-./sa_jag.py -n 200 --exclude 3 4
+# Perform sensitivity analysis with 200 training points, 150 testing points,
+# excluding columns 3 and 4
+./sa_jag.py -tr 200 -te 150 --exclude 3 4
 
-# Perform sensitivity analysis with 150 training points, excluding columns 1 and 2,
-#  and save results to log file
-./sa_jag.py -n 150 -e 1 2 --log
+# Perform sensitivity analysis with 150 training points, 100 testing points,
+#  excluding columns 1 and 2, and save results to log file
+./sa_jag.py -tr 150 -e 1 2 --log
 """
 
 import argparse
@@ -57,14 +58,6 @@ def parse_arguments():
     )
 
     parser.add_argument(
-        "-ns",
-        "--num_samples",
-        type=int,
-        default=10000,
-        help="Number of sample points to have for initial and acquisition points.",
-    )
-
-    parser.add_argument(
         "-e",
         "--exclude",
         type=int,
@@ -74,11 +67,19 @@ def parse_arguments():
     )
 
     parser.add_argument(
-        "-n",
+        "-tr",
         "--num_train",
         type=int,
+        default=400,
+        help="Number of train samples (default: 400).",
+    )
+
+    parser.add_argument(
+        "-te",
+        "--num_test",
+        type=int,
         default=100,
-        help="Number of points to have in training data set.",
+        help="Number of test samples (default: 100).",
     )
 
     parser.add_argument(
@@ -100,14 +101,22 @@ def main():
     """
     # Parse command line arguments
     args = parse_arguments()
-    num_samples = args.num_samples
     alpha = 1e-8
     num_train = args.num_train
+    num_test = args.num_test
     log = args.log
     exclude = args.exclude
 
+    # Check data availability
+    num_samples = num_test + num_train
+    if num_samples > 10000:
+        raise ValueError(
+            f"Requested samples ({num_samples}) exceed JAG_10k dataset size "
+            "limit (10000)."
+        )
+
     df = jag.load_data(n_samples=num_samples, random=False)
-    x_train, x_test, y_train, y_test = jag.split_data(df, n_train=args.num_train)
+    x_train, x_test, y_train, y_test = jag.split_data(df, n_train=num_train)
     dim = x_train.shape[0]
 
     if exclude is not None:
