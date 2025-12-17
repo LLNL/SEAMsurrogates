@@ -31,7 +31,6 @@ chmod +x ./bo_jag.py
 """
 
 import argparse
-import sys
 
 from surmod import bayesian_optimization as bo, jag
 
@@ -45,14 +44,6 @@ def parse_arguments():
     )
 
     parser.add_argument(
-        "-ns",
-        "--num_samples",
-        type=int,
-        default=10000,
-        help="Number of sample points to have for initial and acquisition points.",
-    )
-
-    parser.add_argument(
         "-ny",
         "--normalize_y",
         action="store_true",
@@ -61,7 +52,7 @@ def parse_arguments():
 
     parser.add_argument(
         "-it",
-        "--n_iter",
+        "--num_iter",
         type=int,
         default=10,
         help="Number of BO iterations (number of data points to acquire).",
@@ -69,7 +60,7 @@ def parse_arguments():
 
     parser.add_argument(
         "-in",
-        "--n_init",
+        "--num_init",
         type=int,
         default=5,
         help="Number of initial sample points.",
@@ -100,20 +91,19 @@ def parse_arguments():
 def main():
     # Parse command-line arguments
     args = parse_arguments()
-    num_samples = args.num_samples
     normalize_y = args.normalize_y
     kernel = args.kernel
-    n_init = args.n_init
-    n_iter = args.n_iter
+    num_init = args.num_init
+    num_iter = args.num_iter
     seed = args.seed
 
-    # Warning and terminate if n_iter + n_init > num_samples
-    if n_iter + n_init > num_samples:
-        print(
-            "Warning: The sum of n_iter and n_init is greater than num_samples."
-            " Please check/change your input values."
+    # Check data availability
+    num_samples = num_init + num_iter
+    if num_samples > 10000:
+        raise ValueError(
+            f"Total samples ({num_samples}) exceed JAG_10k dataset size "
+            "limit (10000)."
         )
-        sys.exit(1)
 
     df = jag.load_data(n_samples=num_samples, random=False)
     x = df.iloc[:, :5].to_numpy()
@@ -127,7 +117,7 @@ def main():
         kernel,
         isotropic=False,
         acquisition_function="EI",
-        n_acquire=n_iter,
+        n_acquire=num_iter,
         seed=seed,
     )
 
@@ -139,7 +129,7 @@ def main():
         kernel,
         isotropic=False,
         acquisition_function="PI",
-        n_acquire=n_iter,
+        n_acquire=num_iter,
         seed=seed,
     )
 
@@ -151,7 +141,7 @@ def main():
         kernel,
         isotropic=False,
         acquisition_function="UCB",
-        n_acquire=n_iter,
+        n_acquire=num_iter,
         seed=seed,
     )
 
@@ -163,15 +153,15 @@ def main():
         kernel,
         isotropic=False,
         acquisition_function="random",
-        n_acquire=n_iter,
+        n_acquire=num_iter,
         seed=seed,
     )
 
     # Run Bayesian Optimization for different acquisition functions
-    max_yield_history_EI = bayes_opt_EI.bayes_opt(df, n_init)[2]
-    max_yield_history_PI = bayes_opt_PI.bayes_opt(df, n_init)[2]
-    max_yield_history_UCB = bayes_opt_UCB.bayes_opt(df, n_init)[2]
-    max_yield_history_random = bayes_opt_rand.bayes_opt(df, n_init)[2]
+    max_yield_history_EI = bayes_opt_EI.bayes_opt(df, num_init)[2]
+    max_yield_history_PI = bayes_opt_PI.bayes_opt(df, num_init)[2]
+    max_yield_history_UCB = bayes_opt_UCB.bayes_opt(df, num_init)[2]
+    max_yield_history_random = bayes_opt_rand.bayes_opt(df, num_init)[2]
 
     bo.plot_acquisition_comparison(
         max_yield_history_EI,
@@ -179,8 +169,8 @@ def main():
         max_yield_history_UCB,
         max_yield_history_random,
         kernel,
-        n_iter,
-        n_init,
+        num_iter,
+        num_init,
         "JAG",
     )
 
