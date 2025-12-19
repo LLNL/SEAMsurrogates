@@ -47,7 +47,8 @@ def parse_arguments():
         "-ny",
         "--normalize_y",
         action="store_true",
-        help="Scale all columns of the data to [0,1]",
+        help="Whether or not to normalize the output values in the"
+        " GaussianProcessRegressor.",
     )
 
     parser.add_argument(
