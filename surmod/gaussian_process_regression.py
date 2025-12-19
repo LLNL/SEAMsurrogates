@@ -212,6 +212,7 @@ def plot_gp_mean_prediction(
     kernel: Kernel,
     objective_data_name: str,
     alpha: float,
+    normalize_x: bool,
     scale_x: bool,
     normalize_y: bool,
     input_scaler=None,
@@ -233,6 +234,7 @@ def plot_gp_mean_prediction(
        kernel: Kernel used in the GP model (for display in the plot title).
         objective_data_name (str): Name of the test function or dataset.
        alpha (float): Alpha parameter used in the GP model (for display in the plot title).
+       normalize_x (bool): Whether or not the input features were normalized, for display.
        scale_x (bool): Whether or not the input features were scaled, for display.
        normalize_y (bool): Whether or not the output targets were normalized, for display.
        input_scaler (Optional[object]): Scaler object for input normalization, with transform and inverse_transform methods. Default is None.
@@ -300,6 +302,7 @@ def plot_gp_mean_prediction(
         f"Training samples: {len(x_train)}",
         f"Alpha: {alpha}",
         f"kernel: {kernel}",
+        f"Normalize_x: {normalize_x}",
         f"Scale_x: {scale_x}",
         f"Normalize_y: {normalize_y}",
         f"Test RMSE: {test_rmse:.5f}",
@@ -331,6 +334,7 @@ def plot_gp_std_dev_prediction(
     kernel: Kernel,
     objective_data_name: str,
     alpha: float,
+    normalize_x: bool,
     scale_x: bool,
     normalize_y: bool,
     input_scaler=None,
@@ -349,6 +353,7 @@ def plot_gp_std_dev_prediction(
         kernel (Kernel): Kernel object used in the GP model, for display in the plot title.
         objective_data_name (str): Name of the objective or dataset, used for labeling and saving the plot.
         alpha (float): Noise level or regularization parameter used in the GP model, for display.
+        normalize_x (bool): Whether or not the input features were normalized, for display.
         scale_x (bool): Whether or not the input features were scaled, for display.
         normalize_y (bool): Whether or not the outputs were normalized, for display.
         input_scaler (optional): Fitted scaler or transformer for input normalization, if used.
@@ -405,6 +410,7 @@ def plot_gp_std_dev_prediction(
         f"Training samples: {len(x_train)}",
         f"Alpha: {alpha}",
         f"kernel: {kernel}",
+        f"Normalize_x: {normalize_x}",
         f"Scale_x: {scale_x}",
         f"Normalize_y: {normalize_y}",
         f"Test RMSE: {test_rmse:.5f}",
