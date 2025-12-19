@@ -63,7 +63,7 @@ def parse_arguments():
         type=int,
         nargs="+",
         help="Zero-based column indices to exclude from fitting the surrogate model. "
-             "Valid values for JAG dataset: 0=x1, 1=x2, 2=x3, 3=x4, 4=x5.",
+        "Valid values for JAG dataset: 0=x1, 1=x2, 2=x3, 3=x4, 4=x5.",
     )
 
     parser.add_argument(

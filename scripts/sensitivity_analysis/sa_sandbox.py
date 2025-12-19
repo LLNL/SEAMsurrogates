@@ -203,7 +203,7 @@ def main():
             "W_dg",
             "W_p",
         ]
-    elif objective_function == 'borehole':
+    elif objective_function == "borehole":
         variable_names = ["rw", "r", "Tu", "Hu", "Tl", "Hl", "L", "Kw"]
     elif objective_function == "otlcircuit":
         variable_names = ["R_b1", "R_b2", "R_f", "R_c1", "R_c2", "Beta"]
