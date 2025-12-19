@@ -26,8 +26,8 @@ chmod +x ./nn_sandbox.py
 
 # Train and compare multiple NNs with different hidden layer sizes and learning rates.
 ./nn_sandbox.py --multi_train --multi_hidden_sizes 8 16 --multi_learning_rates 0.001 0.0001
-
 """
+
 import argparse
 import datetime
 import os
