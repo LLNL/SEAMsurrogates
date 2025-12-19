@@ -70,8 +70,8 @@ def parse_arguments():
         "-ny",
         "--normalize_y",
         action="store_true",
-        help="Whether or not to normalize the target y values by removing the"
-        " mean and scaling to unit-variance.",
+        help="Whether or not to normalize the output values in the"
+        " GaussianProcessRegressor.",
     )
 
     parser.add_argument(
