@@ -27,7 +27,8 @@ class Parabola(SyntheticTestFunction):
             bounds: Custom bounds for the function specified as (lower, upper) pairs.
         """
         self.dim = dim
-        bounds = [(-8, 8) for _ in range(self.dim)]
+        if bounds is None:
+            bounds = [(-8, 8) for _ in range(self.dim)]
         self.continuous_inds = list(range(dim))
         self.discrete_inds = []
         self.categorical_inds = []
